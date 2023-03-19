@@ -1,3 +1,18 @@
-body {
-  background-color: #29cf1a;
+.about-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+}
+
+.about-link {
+  display: flex;
+  flex-direction: column-reverse;
+  color: #6e6e6d;
+  transition: 0.3s;
+}
+
+.about-link:hover {
+  transform: scale(1.1);
 }
