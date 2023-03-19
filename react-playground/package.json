@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": ".",
   "scripts": {
     "prepare": "cd .. && husky install react-playground/.husky",
     "dev": "eslint . && prettier --check . && vite",

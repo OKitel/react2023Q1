@@ -17,3 +17,9 @@ Script for running tests with coverage:
 ```sh
 npm run coverage
 ```
+
+Script for running application:
+
+```sh
+npm run dev
+```
