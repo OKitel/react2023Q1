@@ -6,9 +6,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 interface State {
   searchValue: string;
 }
-export class SearchBar extends React.Component<void, State> {
-  constructor() {
-    super();
+export class SearchBar extends React.Component<{}, State> {
+  constructor(props: {}) {
+    super(props);
     const savedState = localStorage.getItem('searchState');
     if (savedState) {
       this.state = JSON.parse(savedState);

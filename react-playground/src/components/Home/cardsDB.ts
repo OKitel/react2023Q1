@@ -1,0 +1,68 @@
+const baseURL =
+  'https://rolling-scopes-school.github.io/okitel-JSFE2021Q1/english-for-kids-base/dist/public/english-for.kids.data/img/';
+export const cardsData = [
+  {
+    id: 1,
+    imgSrc: `${baseURL}panda.jpg`,
+    title: 'Panda',
+    views: 956,
+    likes: 558,
+    shares: 55,
+  },
+  {
+    id: 2,
+    imgSrc: `${baseURL}wolf.jpg`,
+    title: 'Wolf',
+    views: 803,
+    likes: 301,
+    shares: 25,
+  },
+  {
+    id: 3,
+    imgSrc: `${baseURL}fox.jpg`,
+    title: 'Fox',
+    views: 1002,
+    likes: 383,
+    shares: 55,
+  },
+  {
+    id: 4,
+    imgSrc: `${baseURL}hedgehog.jpg`,
+    title: 'Hedgehog',
+    views: 659,
+    likes: 300,
+    shares: 49,
+  },
+  {
+    id: 5,
+    imgSrc: `${baseURL}dog.jpg`,
+    title: 'Dog',
+    views: 769,
+    likes: 600,
+    shares: 39,
+  },
+  {
+    id: 6,
+    imgSrc: `${baseURL}raccoon.jpg`,
+    title: 'Raccoon',
+    views: 525,
+    likes: 365,
+    shares: 31,
+  },
+  {
+    id: 7,
+    imgSrc: `${baseURL}giraffe.jpg`,
+    title: 'Giraffe',
+    views: 759,
+    likes: 503,
+    shares: 58,
+  },
+  {
+    id: 8,
+    imgSrc: `${baseURL}tiger.jpg`,
+    title: 'Tiger',
+    views: 655,
+    likes: 432,
+    shares: 95,
+  },
+];

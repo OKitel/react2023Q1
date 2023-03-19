@@ -1,0 +1,59 @@
+.cardIcon {
+  margin-right: 5px;
+  color: #cdd4c5;
+  transition: 0.5s;
+}
+
+.cardNumbers {
+  transition: 0.5s;
+}
+
+.cardTitle:hover {
+  color: #7a7c78;
+}
+
+.cardFooterElement:hover .cardIcon,
+.cardFooterElement:hover .cardNumbers {
+  color: #7a7c78;
+}
+
+.cardContainer {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  color: #999b97;
+  background: rgb(255, 255, 255);
+  width: 230px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 9px 1px #6e6f6f;
+  transition: 0.5s;
+}
+
+.cardTitle {
+  border-top: 1px solid #999b97;
+  border-bottom: 1px solid #999b97;
+  transition: 0.5s;
+}
+.cardContainer:hover {
+  transform: scale(1.1);
+}
+
+.cardImg {
+  min-width: 200px;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.cardFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
