@@ -1,8 +1,8 @@
 .searchInput {
   width: 250px;
   height: 30px;
-  border: 1px solid rgb(20, 168, 94);
-  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #6e6f6f;
+  font-family: 'Ubuntu', sans-serif;
   color: #999b97;
   padding-left: 35px;
   border-top-left-radius: 10px;
@@ -11,9 +11,9 @@
 .searchBtn {
   width: 70px;
   height: 34px;
-  background: rgba(11, 148, 95, 0.9);
-  font-family: 'Montserrat', sans-serif;
-  color: #cdd4c5;
+  background: rgba(176, 183, 180, 0.9);
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(56, 59, 58);
   cursor: pointer;
   transition: 0.5s;
   border-top-right-radius: 10px;
@@ -22,7 +22,8 @@
 
 .searchBtn:hover,
 .sort-btn:hover {
-  background: rgba(10, 110, 71, 1);
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
 }
 
 .search {
