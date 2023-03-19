@@ -41,3 +41,13 @@
   top: 10px;
   left: 10px;
 }
+
+@media screen and (max-width: 360px) {
+  .search {
+    width: 250px;
+  }
+
+  .searchInput {
+    width: 80%;
+  }
+}
