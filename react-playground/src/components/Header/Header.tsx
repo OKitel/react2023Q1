@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import './style.css';
 
 export class Header extends React.Component {
-  getClassName({ isActive, isPending }: { isActive: boolean; isPending: boolean }) {
-    return isPending ? 'pending' : isActive ? 'active-link' : '';
+  getClassName({ isActive }: { isActive: boolean }) {
+    return isActive ? 'active-link' : '';
   }
 
   render() {
