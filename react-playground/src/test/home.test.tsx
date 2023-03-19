@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Home } from '../components/Home/Home';
+import { Home } from '../components/pages/Home/Home';
 
 describe('Home test', () => {
   test('Should show search bar', () => {

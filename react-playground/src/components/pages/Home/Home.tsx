@@ -1,7 +1,7 @@
-import { SearchBar } from '../SearchBar/SearchBar';
+import { SearchBar } from '../../SearchBar/SearchBar';
 import React from 'react';
 import './style.css';
-import { Card } from '../Card/Card';
+import { Card } from '../../Card/Card';
 import { cardsData } from './cardsDB';
 
 type CardData = {

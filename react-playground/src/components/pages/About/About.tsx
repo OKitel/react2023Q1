@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import GitHubImage from '../../assets/github-1.svg';
+import GitHubImage from '../../../assets/github-1.svg';
 
 export class About extends React.Component {
   render() {
