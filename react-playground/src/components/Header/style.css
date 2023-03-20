@@ -2,7 +2,7 @@
   background: rgba(176, 183, 180, 0.9);
   height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 9px 1px #6e6f6f;
 }
@@ -22,4 +22,8 @@ a {
 .active-link {
   color: #6e6e6d;
   text-decoration: underline;
+}
+
+.page-title {
+  margin-left: 25px;
 }

@@ -32,6 +32,6 @@ describe('App test', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/404/i)).toBeDefined();
+    expect(screen.getAllByText(/404/i)).toBeDefined();
   });
 });
