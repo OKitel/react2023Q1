@@ -1,0 +1,53 @@
+.searchInput {
+  width: 250px;
+  height: 30px;
+  border: 1px solid #6e6f6f;
+  font-family: 'Ubuntu', sans-serif;
+  color: #999b97;
+  padding-left: 35px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.searchBtn {
+  width: 70px;
+  height: 34px;
+  background: rgba(176, 183, 180, 0.9);
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(56, 59, 58);
+  cursor: pointer;
+  transition: 0.5s;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.searchBtn:hover,
+.sort-btn:hover {
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+
+.search {
+  width: 300px;
+  margin: 50px auto 20px auto;
+  display: flex;
+  justify-content: center;
+}
+.search > label {
+  position: relative;
+}
+.searchIcon {
+  position: absolute;
+  color: #cdd4c5;
+  top: 10px;
+  left: 10px;
+}
+
+@media screen and (max-width: 360px) {
+  .search {
+    width: 250px;
+  }
+
+  .searchInput {
+    width: 80%;
+  }
+}

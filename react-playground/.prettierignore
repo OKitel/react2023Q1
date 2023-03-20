@@ -1,0 +1,6 @@
+package-lock.json
+package.json
+vite.config.ts
+node_modules/
+dist/
+coverage/
