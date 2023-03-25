@@ -1,0 +1,9 @@
+.cardContainer {
+  min-width: 300px;
+  margin: 10px;
+  border: 1px solid rgb(11 89 129);
+  border-radius: 5px;
+}
+.cardContainer p {
+  margin-left: 10px;
+}
