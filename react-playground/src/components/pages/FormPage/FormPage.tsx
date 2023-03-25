@@ -18,6 +18,7 @@ export class FormPage extends React.Component<{}, State> {
     this.state = {
       cards: [],
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(card: FormData): void {

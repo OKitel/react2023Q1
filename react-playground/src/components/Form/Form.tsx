@@ -58,15 +58,15 @@ export class Form extends React.Component<Props> {
 
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-
-    console.log(
-      this.firstNameInput.current?.value,
-      this.lastNameInput.current?.value,
-      this.birthDateInput.current?.value,
-      this.selectCountry.current?.value,
-      this.gender.current?.checked,
-      this.formAgree.current?.value
-    );
+    const card: FormData = {
+      firstName: this.firstNameInput.current?.value ?? '',
+      lastName: this.lastNameInput.current?.value ?? '',
+      birthDate: this.birthDateInput.current?.value ?? '',
+      country: this.selectCountry.current?.value ?? '',
+      gender: this.gender.current?.checked ? 'male' : 'female',
+    };
+    this.props.onSubmit(card);
+    console.log(this.formAgree.current?.value ?? '');
   }
 
   render() {
