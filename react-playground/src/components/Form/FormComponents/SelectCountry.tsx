@@ -4,8 +4,7 @@ import './style.css';
 type Props = {
   label?: string;
   name?: string;
-  value: string;
-  onChange: (value: string) => void;
+  refOne: React.Ref<HTMLSelectElement>;
 };
 
 export class SelectCountry extends React.Component<Props> {
@@ -14,19 +13,13 @@ export class SelectCountry extends React.Component<Props> {
   }
 
   render() {
-    const { label = 'Select country', name = 'country', value, onChange } = this.props;
+    const { label = 'Select country', name = 'country', refOne } = this.props;
 
     return (
       <div className="formControl">
         <label htmlFor="country">
           {label} &nbsp;
-          <select
-            name={name}
-            value={value}
-            onChange={(event): void => {
-              onChange(event.target.value);
-            }}
-          >
+          <select name={name} ref={refOne}>
             <option value="Belarus">Belarus</option>
             <option value="Poland">Poland</option>
             <option value="France">France</option>

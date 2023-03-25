@@ -2,8 +2,7 @@ import React from 'react';
 import './style.css';
 
 type Props = {
-  value: boolean;
-  onChange: (value: boolean) => void;
+  refOne: React.Ref<HTMLInputElement>;
 };
 
 export class FormAgree extends React.Component<Props> {
@@ -12,20 +11,13 @@ export class FormAgree extends React.Component<Props> {
   }
 
   render() {
-    const { value, onChange } = this.props;
+    const { refOne } = this.props;
 
     return (
       <div className="formControl">
         <label htmlFor="agree">
           I agree to the processing of personal data
-          <input
-            type="checkbox"
-            name="agree"
-            checked={value}
-            onChange={(): void => {
-              onChange(!value);
-            }}
-          ></input>
+          <input type="checkbox" name="agree" ref={refOne}></input>
         </label>
       </div>
     );

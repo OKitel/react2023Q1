@@ -1,0 +1,21 @@
+.form {
+  border: 5px solid rgb(7 164 245);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+input[type='text'] {
+  width: 100%;
+}
+.form-btn {
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+  margin: 0 auto 10px auto;
+  background: rgb(7 164 245);
+  transition: 0.5s;
+}
+.form-btn:hover {
+  background: rgb(11 89 129);
+}
