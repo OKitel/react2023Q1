@@ -81,57 +81,46 @@ export class Form extends React.Component<Props, State> {
       gender: undefined,
       image: undefined,
     };
-    let isOk = true;
 
     if (!agree) {
       error.agree = 'Agree with privacy policy';
-      isOk = false;
     }
     if (firstName.length === ZERO) {
       error.firstName = 'Name is required';
-      isOk = false;
     } else if (firstName[0].toLowerCase() === firstName[0]) {
       error.firstName = 'Name should start with an uppercase letter';
-      isOk = false;
     }
     if (lastName.length === ZERO) {
       error.lastName = 'Surname is required';
-      isOk = false;
     } else if (lastName[0].toLowerCase() === lastName[0]) {
       error.lastName = 'Surname should start with an uppercase letter';
-      isOk = false;
     }
     if (new Date(birthDate) > new Date()) {
       error.birthDate = 'Welcome back time traveler :)';
-      isOk = false;
     } else if (birthDate.length === ZERO) {
       error.birthDate = 'Birth date is required';
-      isOk = false;
     }
     if (!gender || gender.length === ZERO) {
       error.gender = 'Gender is required';
-      isOk = false;
     }
     if (!country || country === '--select an option--') {
       error.country = 'Country is required';
-      isOk = false;
     }
     if (!image) {
       error.image = 'Image is required';
-      isOk = false;
     }
     this.setState({
       errors: error,
     });
-    return isOk;
+    const values = Object.values(error);
+    return values.every((item) => !item);
   }
 
   getClassName(): string {
     return this.state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
   }
 
-  handleSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  readFormData(): Omit<FormData, 'image'> {
     let gender: 'male' | 'female' | undefined = undefined;
     if (this.genderMale.current?.checked) {
       gender = 'male';
@@ -145,20 +134,32 @@ export class Form extends React.Component<Props, State> {
       country: this.selectCountry.current?.value ?? '',
       gender: gender,
     };
+    return card;
+  }
+
+  onFileLoad(file: File, cb: (fileAsString: string) => void) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      cb(reader.result as string);
+    };
+  }
+
+  handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
+    const card = this.readFormData();
     const files = this.image.current && this.image.current.files;
     if (this.validateForm(card, files)) {
       const file = files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
+      this.onFileLoad(file, (fileAsString: string) => {
         const cardWithImage: FormData = {
           ...card,
-          image: reader.result as string,
+          image: fileAsString,
         };
         this.props.onSubmit(cardWithImage);
         this.setState({ showSuccessMessage: true });
         this.form.current?.reset();
-      };
+      });
     } else {
       this.setState({ showSuccessMessage: false });
     }
