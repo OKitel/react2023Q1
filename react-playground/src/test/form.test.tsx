@@ -1,6 +1,8 @@
 import { describe, test, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FormPage } from '../components/pages/FormPage/FormPage';
+import { FormCard } from '../components/FormCard/FormCard';
+import { FormData } from '../models';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Form page test', () => {
@@ -35,5 +37,19 @@ describe('Form page test', () => {
     expect(screen.getByText(/Gender is required/i)).toBeDefined();
     expect(screen.getByText(/Image is required/i)).toBeDefined();
     expect(screen.getByText(/Agree with privacy policy/i)).toBeDefined();
+  });
+
+  test('Should show form card', () => {
+    const cardInfo: FormData = {
+      firstName: 'John',
+      lastName: 'Smith',
+      birthDate: '1987-03-14',
+      country: 'Poland',
+      gender: 'male',
+      image: 'some image',
+    };
+    render(<FormCard card={cardInfo} />);
+
+    expect(screen.getByText(/John/i)).toBeDefined();
   });
 });
