@@ -47,8 +47,8 @@
   font-size: 0.8rem;
 }
 
-input,
-select {
+select,
+input[type='date'] {
   cursor: pointer;
 }
 
