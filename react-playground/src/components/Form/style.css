@@ -7,6 +7,7 @@
   flex-direction: column;
   margin: 30px auto;
 }
+
 .form-btn {
   cursor: pointer;
   width: 50px;
@@ -16,10 +17,17 @@
   background: rgb(7 164 245);
   transition: 0.5s;
 }
+
 .form-btn:hover {
   background: rgb(11 89 129);
 }
 
 .form input[type='text'] {
   width: 95%;
+}
+
+.validationError {
+  color: red;
+  margin-left: 10px;
+  font-size: 12px;
 }

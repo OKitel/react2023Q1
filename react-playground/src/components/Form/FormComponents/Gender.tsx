@@ -3,6 +3,7 @@ import './style.css';
 
 type Props = {
   refOne: React.Ref<HTMLInputElement>;
+  refTwo: React.Ref<HTMLInputElement>;
 };
 
 export class Gender extends React.Component<Props> {
@@ -11,14 +12,14 @@ export class Gender extends React.Component<Props> {
   }
 
   render() {
-    const { refOne } = this.props;
+    const { refOne, refTwo } = this.props;
 
     return (
       <div className="formControl">
         <div className="switch-field">
           <input type="radio" id="radio-one" name="switch-one" value="male" ref={refOne} />
           <label htmlFor="radio-one">Male</label>
-          <input type="radio" id="radio-two" name="switch-one" value="female" />
+          <input type="radio" id="radio-two" name="switch-one" value="female" ref={refTwo} />
           <label htmlFor="radio-two">Female</label>
         </div>
       </div>

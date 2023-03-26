@@ -3,7 +3,7 @@ export interface FormData {
   lastName: string;
   birthDate: string;
   country: string;
-  gender: 'male' | 'female';
+  gender?: 'male' | 'female';
   image: string;
 }
 export interface FormDataWithID extends FormData {

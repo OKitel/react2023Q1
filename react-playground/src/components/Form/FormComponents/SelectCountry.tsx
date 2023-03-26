@@ -20,6 +20,7 @@ export class SelectCountry extends React.Component<Props> {
         <label htmlFor="country">
           {label} &nbsp;
           <select name={name} ref={refOne}>
+            <option hidden>--select an option--</option>
             <option value="Belarus">Belarus</option>
             <option value="Poland">Poland</option>
             <option value="France">France</option>
