@@ -46,6 +46,7 @@ export class Form extends React.Component<Props, State> {
   genderFemale: React.RefObject<HTMLInputElement>;
   formAgree: React.RefObject<HTMLInputElement>;
   image: React.RefObject<HTMLInputElement>;
+  form: React.RefObject<HTMLFormElement>;
 
   constructor(props: Props) {
     super(props);
@@ -59,6 +60,7 @@ export class Form extends React.Component<Props, State> {
     this.genderFemale = React.createRef();
     this.formAgree = React.createRef();
     this.image = React.createRef();
+    this.form = React.createRef();
   }
 
   validateForm(card: Omit<FormData, 'image'>, files: FileList | null): files is FileList {
@@ -140,6 +142,7 @@ export class Form extends React.Component<Props, State> {
           image: reader.result as string,
         };
         this.props.onSubmit(cardWithImage);
+        this.form.current?.reset();
       };
     }
   }
@@ -147,7 +150,7 @@ export class Form extends React.Component<Props, State> {
   render() {
     const { errors } = this.state;
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit} ref={this.form}>
         <UserNameInput label="Name" name="firstName" refOne={this.firstNameInput} />
         <span className="validationError">{errors.firstName}</span>
         <UserNameInput label="Surname" name="lastName" refOne={this.lastNameInput} />
