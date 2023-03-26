@@ -17,7 +17,7 @@ export class UploadImage extends React.Component<Props> {
       <div className="formControl">
         <label htmlFor="imgUpload" className="fileLabel">
           Upload image
-          <input name="imgUpload" type="file" ref={refOne} />
+          <input id="imgUpload" type="file" ref={refOne} />
         </label>
       </div>
     );
