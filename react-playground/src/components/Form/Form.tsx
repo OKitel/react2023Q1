@@ -87,16 +87,14 @@ export class Form extends React.Component<Props, State> {
     if (firstName.length === ZERO) {
       error.firstName = 'Name is required';
       isOk = false;
-    }
-    if (firstName.toLowerCase() === firstName) {
+    } else if (firstName.toLowerCase() === firstName) {
       error.firstName = 'Name should start with uppercase letter';
       isOk = false;
     }
     if (lastName.length === ZERO || lastName.toLowerCase() === lastName) {
       error.lastName = 'Surname is required';
       isOk = false;
-    }
-    if (lastName.toLowerCase() === lastName) {
+    } else if (lastName.toLowerCase() === lastName) {
       error.lastName = 'Surname should start with uppercase letter';
       isOk = false;
     }
@@ -159,7 +157,7 @@ export class Form extends React.Component<Props, State> {
   render() {
     const { errors } = this.state;
     return (
-      <form className="form" onSubmit={this.handleSubmit} ref={this.form}>
+      <form className="form" onSubmit={this.handleSubmit} role="form" ref={this.form}>
         <UserNameInput label="Name" name="firstName" refOne={this.firstNameInput} />
         <span className="validationError">{errors.firstName}</span>
         <UserNameInput label="Surname" name="lastName" refOne={this.lastNameInput} />
@@ -174,7 +172,7 @@ export class Form extends React.Component<Props, State> {
         <span className="validationError">{errors.image}</span>
         <FormAgree refOne={this.formAgree} />
         <span className="validationError">{errors.agree}</span>
-        <input className="form-btn" type="submit" value="Save" />
+        <input className="form-btn" type="submit" role="button" value="Save" />
       </form>
     );
   }
