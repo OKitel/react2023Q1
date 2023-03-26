@@ -18,7 +18,7 @@ export class BirthDateInput extends React.Component<Props> {
       <div className="formControl">
         <label htmlFor="birthDate" className="birthDateLabel">
           {label}
-          <input className="birthDate" type="date" name={name} ref={refOne} />
+          <input className="birthDate" type="date" name={name} id="birthDate" ref={refOne} />
         </label>
       </div>
     );

@@ -19,7 +19,7 @@ export class UserNameInput extends React.Component<Props> {
       <div className="formControl">
         <label htmlFor={name}>
           {label}
-          <input type="text" name={name} ref={refOne}></input>
+          <input type="text" name={name} ref={refOne} id={name}></input>
         </label>
       </div>
     );
