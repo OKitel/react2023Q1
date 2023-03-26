@@ -22,6 +22,7 @@ interface State {
     gender?: string;
     image?: string;
   };
+  showSuccessMessage: boolean;
 }
 
 const INITIAL_STATE: State = {
@@ -34,6 +35,7 @@ const INITIAL_STATE: State = {
     gender: '',
     image: '',
   },
+  showSuccessMessage: false,
 };
 
 const ZERO = 0;
@@ -123,6 +125,10 @@ export class Form extends React.Component<Props, State> {
     return isOk;
   }
 
+  getClassName(): string {
+    return this.state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
+  }
+
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     let gender: 'male' | 'female' | undefined = undefined;
@@ -149,8 +155,11 @@ export class Form extends React.Component<Props, State> {
           image: reader.result as string,
         };
         this.props.onSubmit(cardWithImage);
+        this.setState({ showSuccessMessage: true });
         this.form.current?.reset();
       };
+    } else {
+      this.setState({ showSuccessMessage: false });
     }
   }
 
@@ -173,6 +182,7 @@ export class Form extends React.Component<Props, State> {
         <FormAgree refOne={this.formAgree} />
         <span className="validationError">{errors.agree}</span>
         <input className="form-btn" type="submit" role="button" value="Save" />
+        <span className={this.getClassName()}>Your data has been saved successfully!</span>
       </form>
     );
   }

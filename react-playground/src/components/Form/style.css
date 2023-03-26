@@ -51,3 +51,13 @@ input,
 select {
   cursor: pointer;
 }
+
+.successMessageHidden {
+  visibility: hidden;
+}
+
+.successMessageVisible {
+  font-weight: bold;
+  visibility: visible;
+  margin-bottom: 5px;
+}
