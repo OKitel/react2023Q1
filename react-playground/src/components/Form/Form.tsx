@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormData } from '../../models';
 import { UserNameInput } from './FormComponents/UserNameInput';
+import { ErrorMessage } from './FormComponents/ErrorMessage';
 import { BirthDateInput } from './FormComponents/BirthDateInput';
 import { SelectCountry } from './FormComponents/SelectCountry';
 import { Gender } from './FormComponents/Gender';
@@ -168,19 +169,19 @@ export class Form extends React.Component<Props, State> {
     return (
       <form className="form" onSubmit={this.handleSubmit} role="form" ref={this.form}>
         <UserNameInput label="Name" name="firstName" refOne={this.firstNameInput} />
-        <span className="validationError">{errors.firstName}</span>
+        <ErrorMessage message={errors.firstName} />
         <UserNameInput label="Surname" name="lastName" refOne={this.lastNameInput} />
-        <span className="validationError">{errors.lastName}</span>
+        <ErrorMessage message={errors.lastName} />
         <BirthDateInput refOne={this.birthDateInput} />
-        <span className="validationError">{errors.birthDate}</span>
+        <ErrorMessage message={errors.birthDate} />
         <SelectCountry refOne={this.selectCountry} />
-        <span className="validationError">{errors.country}</span>
+        <ErrorMessage message={errors.country} />
         <Gender refOne={this.genderMale} refTwo={this.genderFemale} />
-        <span className="validationError">{errors.gender}</span>
+        <ErrorMessage message={errors.gender} />
         <UploadImage refOne={this.image} />
-        <span className="validationError">{errors.image}</span>
+        <ErrorMessage message={errors.image} />
         <FormAgree refOne={this.formAgree} />
-        <span className="validationError">{errors.agree}</span>
+        <ErrorMessage message={errors.agree} />
         <input className="form-btn" type="submit" role="button" value="Save" />
         <span className={this.getClassName()}>Your data has been saved successfully!</span>
       </form>
