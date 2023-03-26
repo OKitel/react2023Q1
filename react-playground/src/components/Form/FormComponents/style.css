@@ -85,3 +85,62 @@
   background: rgb(56, 59, 58);
   color: #f4f4f4;
 }
+
+.hiddenCheckbox {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.agreeLabel {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+  line-height: 18px;
+}
+
+.styledCheckbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #e4e4e4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  top: 0;
+}
+
+.hiddenCheckbox:checked + .styledCheckbox {
+  border: 1px solid rgb(56, 59, 58);
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+
+.styledCheckbox:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.hiddenCheckbox:checked + .styledCheckbox:after {
+  display: block;
+}
+
+.styledCheckbox:after {
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

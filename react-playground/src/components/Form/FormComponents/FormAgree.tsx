@@ -15,9 +15,10 @@ export class FormAgree extends React.Component<Props> {
 
     return (
       <div className="formControl">
-        <label htmlFor="agree">
+        <label htmlFor="agree" className="agreeLabel">
           I agree to the processing of personal data
-          <input type="checkbox" name="agree" ref={refOne}></input>
+          <input className="hiddenCheckbox" type="checkbox" id="agree" ref={refOne}></input>
+          <span className="styledCheckbox"></span>
         </label>
       </div>
     );
