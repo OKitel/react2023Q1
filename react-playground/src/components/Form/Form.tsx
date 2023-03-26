@@ -5,6 +5,7 @@ import { BirthDateInput } from './FormComponents/BirthDateInput';
 import { SelectCountry } from './FormComponents/SelectCountry';
 import { Gender } from './FormComponents/Gender';
 import { FormAgree } from './FormComponents/FormAgree';
+import { UploadImage } from './FormComponents/UploadImage';
 import './style.css';
 
 type Props = {
@@ -161,7 +162,7 @@ export class Form extends React.Component<Props, State> {
         <span className="validationError">{errors.country}</span>
         <Gender refOne={this.genderMale} refTwo={this.genderFemale} />
         <span className="validationError">{errors.gender}</span>
-        <input className="formControl " type="file" ref={this.image} />
+        <UploadImage refOne={this.image} />
         <span className="validationError">{errors.image}</span>
         <FormAgree refOne={this.formAgree} />
         <span className="validationError">{errors.agree}</span>

@@ -1,7 +1,7 @@
 .form {
-  font-size: 18px;
+  font-size: 1.1rem;
   width: 60%;
-  border: 5px solid rgb(7 164 245);
+  border: 5px solid rgb(56, 59, 58);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -10,24 +10,39 @@
 
 .form-btn {
   cursor: pointer;
-  width: 50px;
+  width: 100px;
   height: 30px;
   border-radius: 5px;
   margin: 0 auto 10px auto;
-  background: rgb(7 164 245);
+  background: rgba(176, 183, 180, 0.9);
+  color: rgb(56, 59, 58);
   transition: 0.5s;
+  border: 2px solid transparent;
+  font-size: 1.1rem;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .form-btn:hover {
-  background: rgb(11 89 129);
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
 }
 
 .form input[type='text'] {
   width: 95%;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.3rem;
+  color: rgb(56, 59, 58);
+}
+
+.form input[type='date'],
+.form input[type='text'] {
+  border: 1px solid #6e6f6f;
+  line-height: 24px;
 }
 
 .validationError {
   color: red;
   margin-left: 10px;
-  font-size: 12px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
 }

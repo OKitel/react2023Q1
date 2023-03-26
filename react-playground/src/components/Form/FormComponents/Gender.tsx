@@ -16,12 +16,15 @@ export class Gender extends React.Component<Props> {
 
     return (
       <div className="formControl">
-        <div className="switch-field">
-          <input type="radio" id="radio-one" name="switch-one" value="male" ref={refOne} />
-          <label htmlFor="radio-one">Male</label>
-          <input type="radio" id="radio-two" name="switch-one" value="female" ref={refTwo} />
-          <label htmlFor="radio-two">Female</label>
-        </div>
+        <label>
+          Choose your gender
+          <div className="switch-field">
+            <input type="radio" id="radio-one" name="switch-one" value="male" ref={refOne} />
+            <label htmlFor="radio-one">Male</label>
+            <input type="radio" id="radio-two" name="switch-one" value="female" ref={refTwo} />
+            <label htmlFor="radio-two">Female</label>
+          </div>
+        </label>
       </div>
     );
   }
