@@ -1,11 +1,11 @@
 .form {
+  font-size: 18px;
+  width: 60%;
   border: 5px solid rgb(7 164 245);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-}
-input[type='text'] {
-  width: 100%;
+  margin: 30px auto;
 }
 .form-btn {
   cursor: pointer;
@@ -18,4 +18,8 @@ input[type='text'] {
 }
 .form-btn:hover {
   background: rgb(11 89 129);
+}
+
+.form input[type='text'] {
+  width: 95%;
 }

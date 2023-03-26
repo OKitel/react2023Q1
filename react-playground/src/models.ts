@@ -4,6 +4,7 @@ export interface FormData {
   birthDate: string;
   country: string;
   gender: 'male' | 'female';
+  image: string;
 }
 export interface FormDataWithID extends FormData {
   id: number;

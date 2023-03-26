@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormData } from '../../models';
+import './style.css';
 
 type Props = {
   card: FormData;
@@ -11,15 +12,13 @@ export class FormCard extends React.Component<Props> {
   }
 
   render() {
-    const { firstName, lastName, birthDate, country, gender } = this.props.card;
+    const { firstName, lastName, birthDate, country, gender, image } = this.props.card;
     return (
       <>
-        <div
-          className="cardContainer"
-          style={{
-            background: gender === 'male' ? 'rgb(178, 214, 245)' : 'rgb(245 178 225)',
-          }}
-        >
+        <div className="formCardContainer">
+          <div className="formCardImgContainer">
+            <img className="formCardImg" src={image} alt={image} />
+          </div>
           <p>Name: {firstName}</p>
           <p>Surname: {lastName}</p>
           <p>Birthdate: {birthDate}</p>

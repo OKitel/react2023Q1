@@ -28,6 +28,7 @@ const INITIAL_STATE: State = {
   country: 'Belarus',
   gender: 'male',
   agree: false,
+  image: '',
   errors: {
     firstName: '',
     lastName: '',
@@ -43,6 +44,7 @@ export class Form extends React.Component<Props> {
   selectCountry: React.RefObject<HTMLSelectElement>;
   gender: React.RefObject<HTMLInputElement>;
   formAgree: React.RefObject<HTMLInputElement>;
+  image: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
     super(props);
@@ -54,18 +56,29 @@ export class Form extends React.Component<Props> {
     this.selectCountry = React.createRef();
     this.gender = React.createRef();
     this.formAgree = React.createRef();
+    this.image = React.createRef();
   }
 
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    const card: FormData = {
-      firstName: this.firstNameInput.current?.value ?? '',
-      lastName: this.lastNameInput.current?.value ?? '',
-      birthDate: this.birthDateInput.current?.value ?? '',
-      country: this.selectCountry.current?.value ?? '',
-      gender: this.gender.current?.checked ? 'male' : 'female',
-    };
-    this.props.onSubmit(card);
+
+    if (this.image.current?.files?.length) {
+      const file = this.image.current.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const card: FormData = {
+          firstName: this.firstNameInput.current?.value ?? '',
+          lastName: this.lastNameInput.current?.value ?? '',
+          birthDate: this.birthDateInput.current?.value ?? '',
+          country: this.selectCountry.current?.value ?? '',
+          gender: this.gender.current?.checked ? 'male' : 'female',
+          image: reader.result as string,
+        };
+        this.props.onSubmit(card);
+      };
+    }
+
     console.log(this.formAgree.current?.value ?? '');
   }
 
@@ -80,9 +93,10 @@ export class Form extends React.Component<Props> {
 
         <SelectCountry refOne={this.selectCountry} />
         <Gender refOne={this.gender} />
+        <input className="formControl " type="file" ref={this.image} />
         <FormAgree refOne={this.formAgree} />
 
-        <input className="form-btn" type="submit" value="Save"></input>
+        <input className="form-btn" type="submit" value="Save" />
       </form>
     );
   }

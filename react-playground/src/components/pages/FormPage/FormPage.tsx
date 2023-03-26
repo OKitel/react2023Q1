@@ -22,7 +22,7 @@ export class FormPage extends React.Component<{}, State> {
   }
 
   handleSubmit(card: FormData): void {
-    const { firstName, lastName, birthDate, country, gender } = card;
+    const { firstName, lastName, birthDate, country, gender, image } = card;
     this.setState({
       cards: [
         ...this.state.cards,
@@ -32,6 +32,7 @@ export class FormPage extends React.Component<{}, State> {
           birthDate,
           country,
           gender,
+          image,
           id,
         },
       ],
@@ -43,9 +44,11 @@ export class FormPage extends React.Component<{}, State> {
     return (
       <>
         <Form onSubmit={this.handleSubmit} />
-        {this.state.cards.map((card: FormDataWithID) => (
-          <FormCard key={card.id} card={card} />
-        ))}
+        <div className="formCardsField">
+          {this.state.cards.map((card: FormDataWithID) => (
+            <FormCard key={card.id} card={card} />
+          ))}
+        </div>
       </>
     );
   }
