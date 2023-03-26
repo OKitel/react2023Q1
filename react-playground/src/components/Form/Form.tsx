@@ -88,14 +88,14 @@ export class Form extends React.Component<Props, State> {
       error.firstName = 'Name is required';
       isOk = false;
     } else if (firstName.toLowerCase() === firstName) {
-      error.firstName = 'Name should start with uppercase letter';
+      error.firstName = 'Name should start with an uppercase letter';
       isOk = false;
     }
-    if (lastName.length === ZERO || lastName.toLowerCase() === lastName) {
+    if (lastName.length === ZERO) {
       error.lastName = 'Surname is required';
       isOk = false;
     } else if (lastName.toLowerCase() === lastName) {
-      error.lastName = 'Surname should start with uppercase letter';
+      error.lastName = 'Surname should start with an uppercase letter';
       isOk = false;
     }
     if (new Date(birthDate) > new Date()) {
