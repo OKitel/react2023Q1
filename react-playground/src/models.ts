@@ -17,5 +17,5 @@ export type FormValues = {
   agree: boolean;
   country: string;
   gender: 'male' | 'female';
-  image: FileList;
+  image: FileList | null;
 };

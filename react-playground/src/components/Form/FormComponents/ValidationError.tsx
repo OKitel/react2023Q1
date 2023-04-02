@@ -8,5 +8,9 @@ type Props = {
 export const ValidationError: React.FC<Props> = (props: Props) => {
   const { message } = props;
 
-  return <span className="validationError">{message}</span>;
+  return (
+    <span className="validationError" role="alert">
+      {message}
+    </span>
+  );
 };

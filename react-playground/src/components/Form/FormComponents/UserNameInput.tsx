@@ -15,7 +15,7 @@ const startsWithCapital = (name: string): true | string => {
 
 export const UserNameInput: React.FC<Props> = (props: Props) => {
   const { label, name, refOne } = props;
-  const requiredError = name === 'firstName' ? 'First name' : 'Surname';
+  const requiredError = name === 'firstName' ? 'Name' : 'Surname';
   return (
     <div className="formControl">
       <label htmlFor={name}>

@@ -18,7 +18,7 @@ export const UploadImage: React.FC<Props> = (props: Props) => {
           id="imgUpload"
           type="file"
           accept="image/png, image/gif, image/jpeg"
-          {...refOne('image')}
+          {...refOne('image', { required: 'Image is required' })}
         />
       </label>
     </div>

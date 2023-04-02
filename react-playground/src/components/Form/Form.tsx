@@ -16,93 +16,32 @@ type Props = {
 };
 
 interface State {
-  errors: {
-    firstName?: string;
-    lastName?: string;
-    birthDate?: string;
-    agree?: string;
-    country?: string;
-    gender?: string;
-    image?: string;
-  };
   showSuccessMessage: boolean;
 }
 
 const INITIAL_STATE: State = {
-  errors: {
-    firstName: '',
-    lastName: '',
-    birthDate: '',
-    agree: '',
-    country: '',
-    gender: '',
-    image: '',
-  },
   showSuccessMessage: false,
+};
+
+const FORM_INITIAL_STATE: Omit<FormValues, 'gender'> = {
+  firstName: '',
+  lastName: '',
+  birthDate: '',
+  agree: false,
+  country: '',
+  image: null,
 };
 
 export const Form: React.FC<Props> = (props: Props) => {
   const [state, setState] = useState(INITIAL_STATE);
   const { register, handleSubmit, formState, reset, watch } = useForm<FormValues>();
-  watch('firstName');
-  watch('lastName');
-  watch('birthDate');
+  watch(['firstName', 'lastName', 'birthDate']);
   const { errors } = formState;
-  console.log(errors);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({});
+      reset(FORM_INITIAL_STATE);
     }
   }, [formState, reset]);
-  // const validateForm = (
-  //   card: Omit<FormData, 'image'>,
-  //   files: FileList | null
-  // ): files is FileList => {
-  //   const { firstName, lastName, birthDate, country, gender } = card;
-  //   const agree = formAgree.current?.checked;
-  //   const image = files?.length;
-  //   setState({ ...state, errors: {} });
-  //   const error: State['errors'] = {
-  //     agree: undefined,
-  //     firstName: undefined,
-  //     lastName: undefined,
-  //     birthDate: undefined,
-  //     country: undefined,
-  //     gender: undefined,
-  //     image: undefined,
-  //   };
-
-  //   if (!agree) {
-  //     error.agree = 'Agree with privacy policy';
-  //   }
-  //   if (firstName.length === ZERO) {
-  //     error.firstName = 'Name is required';
-  //   } else if (firstName[0].toLowerCase() === firstName[0]) {
-  //     error.firstName = 'Name should start with an uppercase letter';
-  //   }
-  //   if (lastName.length === ZERO) {
-  //     error.lastName = 'Surname is required';
-  //   } else if (lastName[0].toLowerCase() === lastName[0]) {
-  //     error.lastName = 'Surname should start with an uppercase letter';
-  //   }
-  //   if (new Date(birthDate) > new Date()) {
-  //     error.birthDate = 'Welcome back time traveler :)';
-  //   } else if (birthDate.length === ZERO) {
-  //     error.birthDate = 'Birth date is required';
-  //   }
-  //   if (!gender || gender.length === ZERO) {
-  //     error.gender = 'Gender is required';
-  //   }
-  //   if (!country || country === '--select an option--') {
-  //     error.country = 'Country is required';
-  //   }
-  //   if (!image) {
-  //     error.image = 'Image is required';
-  //   }
-  //   setState({ ...state, errors: error });
-  //   const values = Object.values(error);
-  //   return values.every((item) => !item);
-  // };
 
   const getClassName = (): string => {
     return state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
@@ -116,18 +55,22 @@ export const Form: React.FC<Props> = (props: Props) => {
     };
   };
 
+  const onFailedSubmit = () => {
+    setState({ ...state, showSuccessMessage: false });
+  };
+
   const onSubmit = (data: FormValues) => {
-    console.log(data);
     const card = data;
-    const file = data.image[0];
-    onFileLoad(file, (fileAsString: string) => {
-      const cardWithImage: FormData = {
-        ...card,
-        image: fileAsString,
-      };
-      props.onSubmit(cardWithImage);
-      setState({ ...state, showSuccessMessage: true });
-    });
+    const file = data.image && data.image[0];
+    file &&
+      onFileLoad(file, (fileAsString: string) => {
+        const cardWithImage: FormData = {
+          ...card,
+          image: fileAsString,
+        };
+        props.onSubmit(cardWithImage);
+        setState({ ...state, showSuccessMessage: true });
+      });
   };
 
   const renderValidation = ({ message }: { message: string }) => (
@@ -135,7 +78,7 @@ export const Form: React.FC<Props> = (props: Props) => {
   );
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)} role="form">
+    <form className="form" onSubmit={handleSubmit(onSubmit, onFailedSubmit)} role="form">
       <UserNameInput label="Name" name="firstName" refOne={register} />
       <ErrorMessage errors={errors} name="firstName" render={renderValidation} />
       <UserNameInput label="Surname" name="lastName" refOne={register} />
@@ -143,13 +86,13 @@ export const Form: React.FC<Props> = (props: Props) => {
       <BirthDateInput refOne={register} />
       <ErrorMessage errors={errors} name="birthDate" render={renderValidation} />
       <SelectCountry refOne={register} />
-      {/* <ErrorMessage message={errors.country} /> */}
-      <Gender refOne={register} refTwo={register} />
-      {/* <ErrorMessage message={errors.gender} /> */}
+      <ErrorMessage errors={errors} name="country" render={renderValidation} />
+      <Gender refOne={register} />
+      <ErrorMessage errors={errors} name="gender" render={renderValidation} />
       <UploadImage refOne={register} />
-      {/* <ErrorMessage message={errors.image} /> */}
+      <ErrorMessage errors={errors} name="image" render={renderValidation} />
       <FormAgree refOne={register} />
-      {/* <ErrorMessage message={errors.agree} /> */}
+      <ErrorMessage errors={errors} name="agree" render={renderValidation} />
       <input className="form-btn" type="submit" role="button" value="Save" />
       <span className={getClassName()}>Your data has been saved successfully!</span>
     </form>
