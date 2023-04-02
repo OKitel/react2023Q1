@@ -16,8 +16,12 @@ export const SelectCountry: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       <label htmlFor="country">
         {label} &nbsp;
-        <select className="selectCountry" {...refOne(name)} id="country">
-          <option hidden>--select an option--</option>
+        <select
+          className="selectCountry"
+          {...refOne(name, { required: 'Country is required' })}
+          id="country"
+        >
+          <option hidden></option>
           <option value="Belarus">Belarus</option>
           <option value="Poland">Poland</option>
           <option value="France">France</option>
