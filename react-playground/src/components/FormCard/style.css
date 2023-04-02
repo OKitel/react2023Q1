@@ -1,0 +1,30 @@
+.formCardContainer {
+  width: 250px;
+  margin: 10px;
+  box-shadow: 0 1px 9px 1px #6e6f6f;
+  transition: 0.5s;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  color: #7a7c78;
+}
+.formCardContainer:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.formCardContainer p {
+  margin: 10px;
+}
+
+.formCardImg {
+  flex: none;
+}
+
+.formCardImgContainer {
+  display: flex;
+  justify-content: center;
+  height: 230px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}

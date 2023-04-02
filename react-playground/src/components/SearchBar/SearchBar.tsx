@@ -30,6 +30,7 @@ export class SearchBar extends React.Component<{}, State> {
           <FontAwesomeIcon className="searchIcon" icon={faSearch} />
           <input
             className="searchInput"
+            id="search"
             type="text"
             placeholder="Type here..."
             value={this.state.searchValue}

@@ -20,7 +20,6 @@
 .cardContainer {
   cursor: pointer;
   position: relative;
-  font-family: 'Montserrat', sans-serif;
   color: #999b97;
   background: rgb(255, 255, 255);
   width: 230px;

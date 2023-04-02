@@ -1,0 +1,153 @@
+.formControl {
+  margin: 10px;
+}
+
+.switch-field {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.switch-field input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.switch-field label {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+  cursor: pointer;
+}
+
+.switch-field input:checked + label {
+  background-color: rgb(56, 59, 58);
+  color: #f4f4f4;
+  box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
+
+.selectCountry,
+.birthDate {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.2rem;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.selectCountry option:checked {
+  background-color: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+.birthDateLabel {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.fileLabel input[type='file'] {
+  display: none;
+}
+
+.fileLabel {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fileLabel:hover {
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+
+.hiddenCheckbox {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.agreeLabel {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+  line-height: 18px;
+}
+
+.styledCheckbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #e4e4e4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  top: 0;
+}
+
+.hiddenCheckbox:checked + .styledCheckbox {
+  border: 1px solid rgb(56, 59, 58);
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+
+.styledCheckbox:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.hiddenCheckbox:checked + .styledCheckbox:after {
+  display: block;
+}
+
+.styledCheckbox:after {
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.validationError {
+  color: red;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+}

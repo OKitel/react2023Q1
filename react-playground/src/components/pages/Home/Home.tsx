@@ -3,7 +3,6 @@ import React from 'react';
 import './style.css';
 import { Card } from '../../Card/Card';
 import { cardsData } from './cardsDB';
-import { Header } from '../../Header/Header';
 
 type CardData = {
   id: number;
@@ -41,7 +40,6 @@ export class Home extends React.Component<{}, State> {
     });
     return (
       <>
-        <Header title="Home" />
         <SearchBar />
         <div className="cardsField">{cards}</div>
       </>
