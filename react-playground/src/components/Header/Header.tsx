@@ -1,19 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './style.css';
 
-export class Header extends React.Component<{}> {
-  constructor(props: {}) {
-    super(props);
-    this.state = { text: location.pathname };
-    this.saveLocation = this.saveLocation.bind(this);
-  }
+export const Header: React.FC = () => {
+  const location = useLocation();
 
-  getClassName({ isActive }: { isActive: boolean }) {
+  const getClassName = ({ isActive }: { isActive: boolean }) => {
     return isActive ? 'active-link' : '';
-  }
+  };
 
-  getTitleName() {
+  const getTitleName = () => {
     switch (location.pathname) {
       case '/':
         return 'Home';
@@ -27,28 +23,22 @@ export class Header extends React.Component<{}> {
       default:
         return '404';
     }
-  }
+  };
 
-  saveLocation() {
-    this.setState({ text: location.pathname });
-  }
-
-  render() {
-    return (
-      <header className="header">
-        <h1 className="page-title">{this.getTitleName()}</h1>
-        <nav className="navBar">
-          <NavLink className={this.getClassName} onClick={this.saveLocation} to={'/about'}>
-            About us
-          </NavLink>
-          <NavLink className={this.getClassName} onClick={this.saveLocation} to={'/'}>
-            Home Page
-          </NavLink>
-          <NavLink className={this.getClassName} onClick={this.saveLocation} to={'/form'}>
-            Form
-          </NavLink>
-        </nav>
-      </header>
-    );
-  }
-}
+  return (
+    <header className="header">
+      <h1 className="page-title">{getTitleName()}</h1>
+      <nav className="navBar">
+        <NavLink className={getClassName} to={'/about'}>
+          About us
+        </NavLink>
+        <NavLink className={getClassName} to={'/'}>
+          Home Page
+        </NavLink>
+        <NavLink className={getClassName} to={'/form'}>
+          Form
+        </NavLink>
+      </nav>
+    </header>
+  );
+};
