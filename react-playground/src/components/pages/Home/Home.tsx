@@ -1,5 +1,5 @@
 import { SearchBar } from '../../SearchBar/SearchBar';
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { Card } from '../../Card/Card';
 import { cardsData } from './cardsDB';
@@ -16,33 +16,27 @@ type State = {
   cardsData: Array<CardData>;
 };
 
-export class Home extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      cardsData,
-    };
-  }
+export const Home: React.FC = () => {
+  const [state] = useState<State>({ cardsData });
 
-  render() {
-    const cards = this.state.cardsData.map((item) => {
-      const card = item;
-      return (
-        <Card
-          key={card.id}
-          imgSrc={card.imgSrc}
-          title={card.title}
-          views={card.views}
-          likes={card.likes}
-          shares={card.shares}
-        />
-      );
-    });
+  const cards = state.cardsData.map((item) => {
+    const card = item;
     return (
-      <>
-        <SearchBar />
-        <div className="cardsField">{cards}</div>
-      </>
+      <Card
+        key={card.id}
+        imgSrc={card.imgSrc}
+        title={card.title}
+        views={card.views}
+        likes={card.likes}
+        shares={card.shares}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <>
+      <SearchBar />
+      <div className="cardsField">{cards}</div>
+    </>
+  );
+};
