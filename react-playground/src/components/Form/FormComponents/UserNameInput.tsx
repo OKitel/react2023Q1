@@ -7,21 +7,15 @@ type Props = {
   refOne: React.Ref<HTMLInputElement>;
 };
 
-export class UserNameInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+export const UserNameInput: React.FC<Props> = (props: Props) => {
+  const { label, name, refOne } = props;
 
-  render() {
-    const { label, name, refOne } = this.props;
-
-    return (
-      <div className="formControl">
-        <label htmlFor={name}>
-          {label}
-          <input type="text" name={name} ref={refOne} id={name}></input>
-        </label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="formControl">
+      <label htmlFor={name}>
+        {label}
+        <input type="text" name={name} ref={refOne} id={name}></input>
+      </label>
+    </div>
+  );
+};
