@@ -5,14 +5,8 @@ type Props = {
   message: string | undefined;
 };
 
-export class ErrorMessage extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+export const ErrorMessage: React.FC<Props> = (props: Props) => {
+  const { message } = props;
 
-  render() {
-    const { message } = this.props;
-
-    return <span className="validationError">{message}</span>;
-  }
-}
+  return <span className="validationError">{message}</span>;
+};
