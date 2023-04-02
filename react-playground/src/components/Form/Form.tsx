@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { FormData, FormValues } from '../../models';
 import { UserNameInput } from './FormComponents/UserNameInput';
-import { ErrorMessage } from './FormComponents/ErrorMessage';
 import { BirthDateInput } from './FormComponents/BirthDateInput';
 import { SelectCountry } from './FormComponents/SelectCountry';
 import { Gender } from './FormComponents/Gender';
 import { FormAgree } from './FormComponents/FormAgree';
 import { UploadImage } from './FormComponents/UploadImage';
+import { ValidationError } from './FormComponents/ValidationError';
 import './style.css';
 
 type Props = {
@@ -40,11 +41,14 @@ const INITIAL_STATE: State = {
   showSuccessMessage: false,
 };
 
-const ZERO = 0;
-
 export const Form: React.FC<Props> = (props: Props) => {
   const [state, setState] = useState(INITIAL_STATE);
-  const { register, handleSubmit, formState, reset } = useForm<FormValues>();
+  const { register, handleSubmit, formState, reset, watch } = useForm<FormValues>();
+  watch('firstName');
+  watch('lastName');
+  watch('birthDate');
+  const { errors } = formState;
+  console.log(errors);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({});
@@ -104,23 +108,6 @@ export const Form: React.FC<Props> = (props: Props) => {
     return state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
   };
 
-  // const readFormData = (data: FormValues): Omit<FormData, 'image'> => {
-  //   let gender: 'male' | 'female' | undefined = undefined;
-  //   if (genderMale.current?.checked) {
-  //     gender = 'male';
-  //   } else if (genderFemale.current?.checked) {
-  //     gender = 'female';
-  //   }
-  //   const card: Omit<FormData, 'image'> = {
-  //     firstName: firstNameInput.current?.value ?? '',
-  //     lastName: lastNameInput.current?.value ?? '',
-  //     birthDate: birthDateInput.current?.value ?? '',
-  //     country: selectCountry.current?.value ?? '',
-  //     gender: gender,
-  //   };
-  //   return card;
-  // };
-
   const onFileLoad = (file: File, cb: (fileAsString: string) => void) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -143,14 +130,18 @@ export const Form: React.FC<Props> = (props: Props) => {
     });
   };
 
+  const renderValidation = ({ message }: { message: string }) => (
+    <ValidationError message={message} />
+  );
+
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)} role="form">
       <UserNameInput label="Name" name="firstName" refOne={register} />
-      {/* <ErrorMessage message={errors.firstName} /> */}
+      <ErrorMessage errors={errors} name="firstName" render={renderValidation} />
       <UserNameInput label="Surname" name="lastName" refOne={register} />
-      {/* <ErrorMessage message={errors.lastName} /> */}
+      <ErrorMessage errors={errors} name="lastName" render={renderValidation} />
       <BirthDateInput refOne={register} />
-      {/* <ErrorMessage message={errors.birthDate} /> */}
+      <ErrorMessage errors={errors} name="birthDate" render={renderValidation} />
       <SelectCountry refOne={register} />
       {/* <ErrorMessage message={errors.country} /> */}
       <Gender refOne={register} refTwo={register} />

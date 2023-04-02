@@ -9,14 +9,25 @@ type Props = {
   refOne: UseFormRegister<FormValues>;
 };
 
+const startsWithCapital = (name: string): true | string => {
+  return name[0].toLowerCase() !== name[0] || 'Value should start with a capital letter';
+};
+
 export const UserNameInput: React.FC<Props> = (props: Props) => {
   const { label, name, refOne } = props;
-
+  const requiredError = name === 'firstName' ? 'First name' : 'Surname';
   return (
     <div className="formControl">
       <label htmlFor={name}>
         {label}
-        <input type="text" {...refOne(name)} id={name}></input>
+        <input
+          type="text"
+          {...refOne(name, {
+            required: `${requiredError} is required`,
+            validate: { startsWithCapital },
+          })}
+          id={name}
+        ></input>
       </label>
     </div>
   );
