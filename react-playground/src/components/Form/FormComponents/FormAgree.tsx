@@ -1,8 +1,10 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
-  refOne: React.Ref<HTMLInputElement>;
+  refOne: UseFormRegister<FormValues>;
 };
 
 export const FormAgree: React.FC<Props> = (props: Props) => {
@@ -12,7 +14,7 @@ export const FormAgree: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       <label htmlFor="agree" className="agreeLabel">
         I agree to the processing of personal data
-        <input className="hiddenCheckbox" type="checkbox" id="agree" ref={refOne}></input>
+        <input className="hiddenCheckbox" type="checkbox" id="agree" {...refOne('agree')}></input>
         <span className="styledCheckbox"></span>
       </label>
     </div>

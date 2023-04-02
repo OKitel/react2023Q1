@@ -1,9 +1,11 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
-  refOne: React.Ref<HTMLInputElement>;
-  refTwo: React.Ref<HTMLInputElement>;
+  refOne: UseFormRegister<FormValues>;
+  refTwo: UseFormRegister<FormValues>;
 };
 
 export const Gender: React.FC<Props> = (props: Props) => {
@@ -13,9 +15,9 @@ export const Gender: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       Choose your gender
       <div className="switch-field">
-        <input type="radio" id="radio-one" name="switch-one" value="male" ref={refOne} />
+        <input type="radio" id="radio-one" value="male" {...refOne('gender')} />
         <label htmlFor="radio-one">Male</label>
-        <input type="radio" id="radio-two" name="switch-one" value="female" ref={refTwo} />
+        <input type="radio" id="radio-two" value="female" {...refTwo('gender')} />
         <label htmlFor="radio-two">Female</label>
       </div>
     </div>

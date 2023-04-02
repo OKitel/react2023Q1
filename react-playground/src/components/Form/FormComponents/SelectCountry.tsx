@@ -1,10 +1,12 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
   label?: string;
-  name?: string;
-  refOne: React.Ref<HTMLSelectElement>;
+  name?: 'country';
+  refOne: UseFormRegister<FormValues>;
 };
 
 export const SelectCountry: React.FC<Props> = (props: Props) => {
@@ -14,7 +16,7 @@ export const SelectCountry: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       <label htmlFor="country">
         {label} &nbsp;
-        <select className="selectCountry" name={name} ref={refOne} id="country">
+        <select className="selectCountry" {...refOne(name)} id="country">
           <option hidden>--select an option--</option>
           <option value="Belarus">Belarus</option>
           <option value="Poland">Poland</option>

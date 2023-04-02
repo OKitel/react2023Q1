@@ -1,10 +1,12 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
   label?: string;
-  name?: string;
-  refOne: React.Ref<HTMLInputElement>;
+  name?: 'birthDate';
+  refOne: UseFormRegister<FormValues>;
 };
 
 export const BirthDateInput: React.FC<Props> = (props: Props) => {
@@ -13,7 +15,7 @@ export const BirthDateInput: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       <label htmlFor="birthDate" className="birthDateLabel">
         {label}
-        <input className="birthDate" type="date" name={name} id="birthDate" ref={refOne} />
+        <input className="birthDate" type="date" id="birthDate" {...refOne(name)} />
       </label>
     </div>
   );

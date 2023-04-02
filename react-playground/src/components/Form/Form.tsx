@@ -1,5 +1,6 @@
-import React from 'react';
-import { FormData } from '../../models';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { FormData, FormValues } from '../../models';
 import { UserNameInput } from './FormComponents/UserNameInput';
 import { ErrorMessage } from './FormComponents/ErrorMessage';
 import { BirthDateInput } from './FormComponents/BirthDateInput';
@@ -41,151 +42,125 @@ const INITIAL_STATE: State = {
 
 const ZERO = 0;
 
-export class Form extends React.Component<Props, State> {
-  firstNameInput: React.RefObject<HTMLInputElement>;
-  lastNameInput: React.RefObject<HTMLInputElement>;
-  birthDateInput: React.RefObject<HTMLInputElement>;
-  selectCountry: React.RefObject<HTMLSelectElement>;
-  genderMale: React.RefObject<HTMLInputElement>;
-  genderFemale: React.RefObject<HTMLInputElement>;
-  formAgree: React.RefObject<HTMLInputElement>;
-  image: React.RefObject<HTMLInputElement>;
-  form: React.RefObject<HTMLFormElement>;
+export const Form: React.FC<Props> = (props: Props) => {
+  const [state, setState] = useState(INITIAL_STATE);
+  const { register, handleSubmit, formState, reset } = useForm<FormValues>();
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({});
+    }
+  }, [formState, reset]);
+  // const validateForm = (
+  //   card: Omit<FormData, 'image'>,
+  //   files: FileList | null
+  // ): files is FileList => {
+  //   const { firstName, lastName, birthDate, country, gender } = card;
+  //   const agree = formAgree.current?.checked;
+  //   const image = files?.length;
+  //   setState({ ...state, errors: {} });
+  //   const error: State['errors'] = {
+  //     agree: undefined,
+  //     firstName: undefined,
+  //     lastName: undefined,
+  //     birthDate: undefined,
+  //     country: undefined,
+  //     gender: undefined,
+  //     image: undefined,
+  //   };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = INITIAL_STATE;
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.firstNameInput = React.createRef();
-    this.lastNameInput = React.createRef();
-    this.birthDateInput = React.createRef();
-    this.selectCountry = React.createRef();
-    this.genderMale = React.createRef();
-    this.genderFemale = React.createRef();
-    this.formAgree = React.createRef();
-    this.image = React.createRef();
-    this.form = React.createRef();
-  }
+  //   if (!agree) {
+  //     error.agree = 'Agree with privacy policy';
+  //   }
+  //   if (firstName.length === ZERO) {
+  //     error.firstName = 'Name is required';
+  //   } else if (firstName[0].toLowerCase() === firstName[0]) {
+  //     error.firstName = 'Name should start with an uppercase letter';
+  //   }
+  //   if (lastName.length === ZERO) {
+  //     error.lastName = 'Surname is required';
+  //   } else if (lastName[0].toLowerCase() === lastName[0]) {
+  //     error.lastName = 'Surname should start with an uppercase letter';
+  //   }
+  //   if (new Date(birthDate) > new Date()) {
+  //     error.birthDate = 'Welcome back time traveler :)';
+  //   } else if (birthDate.length === ZERO) {
+  //     error.birthDate = 'Birth date is required';
+  //   }
+  //   if (!gender || gender.length === ZERO) {
+  //     error.gender = 'Gender is required';
+  //   }
+  //   if (!country || country === '--select an option--') {
+  //     error.country = 'Country is required';
+  //   }
+  //   if (!image) {
+  //     error.image = 'Image is required';
+  //   }
+  //   setState({ ...state, errors: error });
+  //   const values = Object.values(error);
+  //   return values.every((item) => !item);
+  // };
 
-  validateForm(card: Omit<FormData, 'image'>, files: FileList | null): files is FileList {
-    const { firstName, lastName, birthDate, country, gender } = card;
-    const agree = this.formAgree.current?.checked;
-    const image = files?.length;
-    this.setState({ errors: {} });
-    const error: State['errors'] = {
-      agree: undefined,
-      firstName: undefined,
-      lastName: undefined,
-      birthDate: undefined,
-      country: undefined,
-      gender: undefined,
-      image: undefined,
-    };
+  const getClassName = (): string => {
+    return state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
+  };
 
-    if (!agree) {
-      error.agree = 'Agree with privacy policy';
-    }
-    if (firstName.length === ZERO) {
-      error.firstName = 'Name is required';
-    } else if (firstName[0].toLowerCase() === firstName[0]) {
-      error.firstName = 'Name should start with an uppercase letter';
-    }
-    if (lastName.length === ZERO) {
-      error.lastName = 'Surname is required';
-    } else if (lastName[0].toLowerCase() === lastName[0]) {
-      error.lastName = 'Surname should start with an uppercase letter';
-    }
-    if (new Date(birthDate) > new Date()) {
-      error.birthDate = 'Welcome back time traveler :)';
-    } else if (birthDate.length === ZERO) {
-      error.birthDate = 'Birth date is required';
-    }
-    if (!gender || gender.length === ZERO) {
-      error.gender = 'Gender is required';
-    }
-    if (!country || country === '--select an option--') {
-      error.country = 'Country is required';
-    }
-    if (!image) {
-      error.image = 'Image is required';
-    }
-    this.setState({
-      errors: error,
-    });
-    const values = Object.values(error);
-    return values.every((item) => !item);
-  }
+  // const readFormData = (data: FormValues): Omit<FormData, 'image'> => {
+  //   let gender: 'male' | 'female' | undefined = undefined;
+  //   if (genderMale.current?.checked) {
+  //     gender = 'male';
+  //   } else if (genderFemale.current?.checked) {
+  //     gender = 'female';
+  //   }
+  //   const card: Omit<FormData, 'image'> = {
+  //     firstName: firstNameInput.current?.value ?? '',
+  //     lastName: lastNameInput.current?.value ?? '',
+  //     birthDate: birthDateInput.current?.value ?? '',
+  //     country: selectCountry.current?.value ?? '',
+  //     gender: gender,
+  //   };
+  //   return card;
+  // };
 
-  getClassName(): string {
-    return this.state.showSuccessMessage ? 'successMessageVisible' : 'successMessageHidden';
-  }
-
-  readFormData(): Omit<FormData, 'image'> {
-    let gender: 'male' | 'female' | undefined = undefined;
-    if (this.genderMale.current?.checked) {
-      gender = 'male';
-    } else if (this.genderFemale.current?.checked) {
-      gender = 'female';
-    }
-    const card: Omit<FormData, 'image'> = {
-      firstName: this.firstNameInput.current?.value ?? '',
-      lastName: this.lastNameInput.current?.value ?? '',
-      birthDate: this.birthDateInput.current?.value ?? '',
-      country: this.selectCountry.current?.value ?? '',
-      gender: gender,
-    };
-    return card;
-  }
-
-  onFileLoad(file: File, cb: (fileAsString: string) => void) {
+  const onFileLoad = (file: File, cb: (fileAsString: string) => void) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       cb(reader.result as string);
     };
-  }
+  };
 
-  handleSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    const card = this.readFormData();
-    const files = this.image.current && this.image.current.files;
-    if (this.validateForm(card, files)) {
-      const file = files[0];
-      this.onFileLoad(file, (fileAsString: string) => {
-        const cardWithImage: FormData = {
-          ...card,
-          image: fileAsString,
-        };
-        this.props.onSubmit(cardWithImage);
-        this.setState({ showSuccessMessage: true });
-        this.form.current?.reset();
-      });
-    } else {
-      this.setState({ showSuccessMessage: false });
-    }
-  }
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+    const card = data;
+    const file = data.image[0];
+    onFileLoad(file, (fileAsString: string) => {
+      const cardWithImage: FormData = {
+        ...card,
+        image: fileAsString,
+      };
+      props.onSubmit(cardWithImage);
+      setState({ ...state, showSuccessMessage: true });
+    });
+  };
 
-  render() {
-    const { errors } = this.state;
-    return (
-      <form className="form" onSubmit={this.handleSubmit} role="form" ref={this.form}>
-        <UserNameInput label="Name" name="firstName" refOne={this.firstNameInput} />
-        <ErrorMessage message={errors.firstName} />
-        <UserNameInput label="Surname" name="lastName" refOne={this.lastNameInput} />
-        <ErrorMessage message={errors.lastName} />
-        <BirthDateInput refOne={this.birthDateInput} />
-        <ErrorMessage message={errors.birthDate} />
-        <SelectCountry refOne={this.selectCountry} />
-        <ErrorMessage message={errors.country} />
-        <Gender refOne={this.genderMale} refTwo={this.genderFemale} />
-        <ErrorMessage message={errors.gender} />
-        <UploadImage refOne={this.image} />
-        <ErrorMessage message={errors.image} />
-        <FormAgree refOne={this.formAgree} />
-        <ErrorMessage message={errors.agree} />
-        <input className="form-btn" type="submit" role="button" value="Save" />
-        <span className={this.getClassName()}>Your data has been saved successfully!</span>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="form" onSubmit={handleSubmit(onSubmit)} role="form">
+      <UserNameInput label="Name" name="firstName" refOne={register} />
+      {/* <ErrorMessage message={errors.firstName} /> */}
+      <UserNameInput label="Surname" name="lastName" refOne={register} />
+      {/* <ErrorMessage message={errors.lastName} /> */}
+      <BirthDateInput refOne={register} />
+      {/* <ErrorMessage message={errors.birthDate} /> */}
+      <SelectCountry refOne={register} />
+      {/* <ErrorMessage message={errors.country} /> */}
+      <Gender refOne={register} refTwo={register} />
+      {/* <ErrorMessage message={errors.gender} /> */}
+      <UploadImage refOne={register} />
+      {/* <ErrorMessage message={errors.image} /> */}
+      <FormAgree refOne={register} />
+      {/* <ErrorMessage message={errors.agree} /> */}
+      <input className="form-btn" type="submit" role="button" value="Save" />
+      <span className={getClassName()}>Your data has been saved successfully!</span>
+    </form>
+  );
+};

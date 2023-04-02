@@ -1,8 +1,10 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
-  refOne: React.RefObject<HTMLInputElement>;
+  refOne: UseFormRegister<FormValues>;
 };
 
 export const UploadImage: React.FC<Props> = (props: Props) => {
@@ -12,7 +14,12 @@ export const UploadImage: React.FC<Props> = (props: Props) => {
     <div className="formControl">
       <label htmlFor="imgUpload" className="fileLabel">
         Upload image
-        <input id="imgUpload" type="file" accept="image/png, image/gif, image/jpeg" ref={refOne} />
+        <input
+          id="imgUpload"
+          type="file"
+          accept="image/png, image/gif, image/jpeg"
+          {...refOne('image')}
+        />
       </label>
     </div>
   );
