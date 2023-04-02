@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '../../Form/Form';
 import { FormCard } from '../../FormCard/FormCard';
 import { FormData, FormDataWithID } from '../../../models';
@@ -12,20 +12,14 @@ type State = {
   cards: Array<FormDataWithID>;
 };
 
-export class FormPage extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      cards: [],
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export const FormPage: React.FC = () => {
+  const [state, setState] = useState<State>({ cards: [] });
 
-  handleSubmit(card: FormData): void {
+  const handleSubmit = (card: FormData): void => {
     const { firstName, lastName, birthDate, country, gender, image } = card;
-    this.setState({
+    setState({
       cards: [
-        ...this.state.cards,
+        ...state.cards,
         {
           firstName,
           lastName,
@@ -38,18 +32,16 @@ export class FormPage extends React.Component<{}, State> {
       ],
     });
     id += INCREMENT_ID;
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <Form onSubmit={this.handleSubmit} />
-        <div className="formCardsField">
-          {this.state.cards.map((card: FormDataWithID) => (
-            <FormCard key={card.id} card={card} />
-          ))}
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Form onSubmit={handleSubmit} />
+      <div className="formCardsField">
+        {state.cards.map((card: FormDataWithID) => (
+          <FormCard key={card.id} card={card} />
+        ))}
+      </div>
+    </>
+  );
+};
