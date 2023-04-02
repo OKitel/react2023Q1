@@ -7,20 +7,14 @@ type Props = {
   refOne: React.Ref<HTMLInputElement>;
 };
 
-export class BirthDateInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    const { label = 'Birth date', name = 'birthDate', refOne } = this.props;
-    return (
-      <div className="formControl">
-        <label htmlFor="birthDate" className="birthDateLabel">
-          {label}
-          <input className="birthDate" type="date" name={name} id="birthDate" ref={refOne} />
-        </label>
-      </div>
-    );
-  }
-}
+export const BirthDateInput: React.FC<Props> = (props: Props) => {
+  const { label = 'Birth date', name = 'birthDate', refOne } = props;
+  return (
+    <div className="formControl">
+      <label htmlFor="birthDate" className="birthDateLabel">
+        {label}
+        <input className="birthDate" type="date" name={name} id="birthDate" ref={refOne} />
+      </label>
+    </div>
+  );
+};
