@@ -54,4 +54,21 @@ describe('Form page test', () => {
 
     expect(screen.getByText(/John/i)).toBeDefined();
   });
+
+  test('Should upload file', async () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <FormPage />
+      </MemoryRouter>
+    );
+
+    const file = new File(['(⌐□_□)'], 'test-image.png', { type: 'image/png' });
+    const fileInput = screen.getByLabelText('Upload image') as HTMLInputElement;
+    await act(async () => {
+      fireEvent.change(fileInput, { target: { files: [file] } });
+    });
+
+    expect(fileInput.files).toHaveLength(1);
+    expect(fileInput.files && fileInput.files[0].name).toBe('test-image.png');
+  });
 });
