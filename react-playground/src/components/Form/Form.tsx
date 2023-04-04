@@ -34,7 +34,9 @@ const FORM_INITIAL_STATE: Omit<FormValues, 'gender'> = {
 
 export const Form: React.FC<Props> = (props: Props) => {
   const [state, setState] = useState(INITIAL_STATE);
-  const { register, handleSubmit, formState, reset, watch } = useForm<FormValues>();
+  const { register, handleSubmit, formState, reset, watch } = useForm<FormValues>({
+    reValidateMode: 'onSubmit',
+  });
   watch(['firstName', 'lastName', 'birthDate']);
   const { errors } = formState;
   useEffect(() => {
