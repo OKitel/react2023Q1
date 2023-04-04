@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { FormPage } from '../components/pages/FormPage/FormPage';
 import { FormCard } from '../components/FormCard/FormCard';
 import { FormData } from '../models';
@@ -21,14 +21,16 @@ describe('Form page test', () => {
     expect(screen.getByText('I agree to the processing of personal data')).toBeDefined();
   });
 
-  test('Should check validation', () => {
+  test('Should check validation', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <FormPage />
       </MemoryRouter>
     );
 
-    fireEvent.submit(screen.getByRole('form'));
+    await act(async () => {
+      fireEvent.submit(screen.getByRole('form'));
+    });
 
     expect(screen.getByText(/^Name is required/i)).toBeDefined();
     expect(screen.getByText(/Surname is required/i)).toBeDefined();
@@ -51,5 +53,22 @@ describe('Form page test', () => {
     render(<FormCard card={cardInfo} />);
 
     expect(screen.getByText(/John/i)).toBeDefined();
+  });
+
+  test('Should upload file', async () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <FormPage />
+      </MemoryRouter>
+    );
+
+    const file = new File(['(⌐□_□)'], 'test-image.png', { type: 'image/png' });
+    const fileInput = screen.getByLabelText('Upload image') as HTMLInputElement;
+    await act(async () => {
+      fireEvent.change(fileInput, { target: { files: [file] } });
+    });
+
+    expect(fileInput.files).toHaveLength(1);
+    expect(fileInput.files && fileInput.files[0].name).toBe('test-image.png');
   });
 });

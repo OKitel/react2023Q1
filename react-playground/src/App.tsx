@@ -7,20 +7,18 @@ import { About } from './components/pages/About/About';
 import { FormPage } from './components/pages/FormPage/FormPage';
 import './App.css';
 
-export class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/form" element={<FormPage />}></Route>
-          <Route path="/*" element={<NotFound />}></Route>
-        </Routes>
-      </div>
-    );
-  }
-}
+export const App: React.FC = () => {
+  return (
+    <div className="App">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/form" element={<FormPage />}></Route>
+        <Route path="/*" element={<NotFound />}></Route>
+      </Routes>
+    </div>
+  );
+};
 
 export default App;

@@ -1,30 +1,26 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
-  refOne: React.RefObject<HTMLInputElement>;
+  refOne: UseFormRegister<FormValues>;
 };
 
-export class UploadImage extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+export const UploadImage: React.FC<Props> = (props: Props) => {
+  const { refOne } = props;
 
-  render() {
-    const { refOne } = this.props;
-
-    return (
-      <div className="formControl">
-        <label htmlFor="imgUpload" className="fileLabel">
-          Upload image
-          <input
-            id="imgUpload"
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            ref={refOne}
-          />
-        </label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="formControl">
+      <label htmlFor="imgUpload" className="fileLabel">
+        Upload image
+        <input
+          id="imgUpload"
+          type="file"
+          accept="image/png, image/gif, image/jpeg"
+          {...refOne('image', { required: 'Image is required' })}
+        />
+      </label>
+    </div>
+  );
+};

@@ -1,26 +1,35 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
   label?: string;
-  name?: string;
-  refOne: React.Ref<HTMLInputElement>;
+  name?: 'birthDate';
+  refOne: UseFormRegister<FormValues>;
 };
 
-export class BirthDateInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+const isDateInPast = (date: string): true | string => {
+  const newDate = new Date(date);
+  return newDate < new Date() || 'Welcome back time traveler :)';
+};
 
-  render() {
-    const { label = 'Birth date', name = 'birthDate', refOne } = this.props;
-    return (
-      <div className="formControl">
-        <label htmlFor="birthDate" className="birthDateLabel">
-          {label}
-          <input className="birthDate" type="date" name={name} id="birthDate" ref={refOne} />
-        </label>
-      </div>
-    );
-  }
-}
+export const BirthDateInput: React.FC<Props> = (props: Props) => {
+  const { label = 'Birth date', name = 'birthDate', refOne } = props;
+  return (
+    <div className="formControl">
+      <label htmlFor="birthDate" className="birthDateLabel">
+        {label}
+        <input
+          className="birthDate"
+          type="date"
+          id="birthDate"
+          {...refOne(name, {
+            required: 'Birth date is required',
+            validate: { isDateInPast },
+          })}
+        />
+      </label>
+    </div>
+  );
+};

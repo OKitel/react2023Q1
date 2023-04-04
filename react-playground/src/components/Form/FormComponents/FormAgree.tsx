@@ -1,26 +1,27 @@
 import React from 'react';
 import './style.css';
+import { FormValues } from 'models';
+import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
-  refOne: React.Ref<HTMLInputElement>;
+  refOne: UseFormRegister<FormValues>;
 };
 
-export class FormAgree extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+export const FormAgree: React.FC<Props> = (props: Props) => {
+  const { refOne } = props;
 
-  render() {
-    const { refOne } = this.props;
-
-    return (
-      <div className="formControl">
-        <label htmlFor="agree" className="agreeLabel">
-          I agree to the processing of personal data
-          <input className="hiddenCheckbox" type="checkbox" id="agree" ref={refOne}></input>
-          <span className="styledCheckbox"></span>
-        </label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="formControl">
+      <label htmlFor="agree" className="agreeLabel">
+        I agree to the processing of personal data
+        <input
+          className="hiddenCheckbox"
+          type="checkbox"
+          id="agree"
+          {...refOne('agree', { required: 'Agree with privacy policy' })}
+        ></input>
+        <span className="styledCheckbox"></span>
+      </label>
+    </div>
+  );
+};
