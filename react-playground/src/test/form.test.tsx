@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { FormPage } from '../components/pages/FormPage/FormPage';
 import { FormCard } from '../components/FormCard/FormCard';
-import { FormData } from '../models';
+import { FormData } from '../shared/models';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Form page test', () => {

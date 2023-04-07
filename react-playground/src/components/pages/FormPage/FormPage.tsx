@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from '../../Form/Form';
 import { FormCard } from '../../FormCard/FormCard';
-import { FormData, FormDataWithID } from '../../../models';
+import { FormData, FormDataWithID } from '../../../shared/models';
 import './style.css';
 
 const DEFAULT_ID = 0;

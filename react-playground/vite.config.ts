@@ -14,4 +14,13 @@ export default defineConfig({
       all: true,
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.unsplash.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });

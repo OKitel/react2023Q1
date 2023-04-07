@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { FormValues } from 'models';
+import { FormValues } from '../../../shared/models';
 import { UseFormRegister } from 'react-hook-form';
 
 type Props = {

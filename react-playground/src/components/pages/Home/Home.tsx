@@ -2,40 +2,59 @@ import { SearchBar } from '../../SearchBar/SearchBar';
 import React, { useState } from 'react';
 import './style.css';
 import { Card } from '../../Card/Card';
-import { cardsData } from './cardsDB';
+import { getPhotoList } from '../../../api/unsplash.photos';
+import { ApiResponse, PhotoDTO } from '../../../api/models';
 
 type CardData = {
-  id: number;
+  id: string;
   imgSrc: string;
-  title: string;
-  views: number;
   likes: number;
-  shares: number;
+  alt: string;
 };
-type State = {
-  cardsData: Array<CardData>;
-};
+
+// type ModalData = {
+//   alt: string;
+//   description: string;
+//   imgSrc: string;
+//   downloadLink: string;
+//   userName: string;
+//   userBio: string;
+//   userLocation: string;
+//   created: string;
+//   color: string;
+//   views: number;
+// };
 
 export const Home: React.FC = () => {
-  const [state] = useState<State>({ cardsData });
+  const [cardsData, setCardsData] = useState<Array<CardData>>([]);
+  const [rejected, setRejected] = useState(false);
 
-  const cards = state.cardsData.map((item) => {
+  console.log(rejected);
+
+  const onSubmit = async (value: string) => {
+    const data: ApiResponse | undefined = await getPhotoList(value);
+    if (!data) {
+      setRejected(true);
+      return;
+    }
+    const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
+      return {
+        id: item.id,
+        imgSrc: item.urls.small,
+        alt: item.alt_description,
+        likes: item.likes,
+      };
+    });
+    setCardsData(cards);
+  };
+  const cards = cardsData.map((item) => {
     const card = item;
-    return (
-      <Card
-        key={card.id}
-        imgSrc={card.imgSrc}
-        title={card.title}
-        views={card.views}
-        likes={card.likes}
-        shares={card.shares}
-      />
-    );
+    return <Card key={card.id} imgSrc={card.imgSrc} likes={card.likes} alt={card.alt} />;
   });
 
   return (
     <>
-      <SearchBar />
+      <SearchBar onSubmit={onSubmit} />
       <div className="cardsField">{cards}</div>
     </>
   );

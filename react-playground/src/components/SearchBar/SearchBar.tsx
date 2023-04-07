@@ -7,7 +7,11 @@ interface State {
   searchValue: string;
 }
 
-export const SearchBar = () => {
+type Props = {
+  onSubmit: (value: string) => void;
+};
+
+export const SearchBar = (props: Props) => {
   const refInput: React.RefObject<HTMLInputElement> = useRef(null);
 
   const savedState = localStorage.getItem('searchValue');
@@ -41,7 +45,12 @@ export const SearchBar = () => {
           }}
         />
       </label>
-      <input className="searchBtn" type="submit" value="Search" />
+      <input
+        className="searchBtn"
+        type="submit"
+        value="Search"
+        onClick={() => props.onSubmit(state.searchValue)}
+      />
     </div>
   );
 };
