@@ -78,7 +78,7 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
           {modalPhoto?.userLocation && (
             <li>
               <FontAwesomeIcon className="modal__icon" icon={faLocationPin} />
-              Location: {modalPhoto.userLocation}
+              {modalPhoto.userLocation}
             </li>
           )}
           {modalPhoto?.description && (

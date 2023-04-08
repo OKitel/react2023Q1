@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, KeyboardEvent } from 'react';
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -29,6 +29,12 @@ export const SearchBar = (props: Props) => {
     };
   }, [refInput]);
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      props.onSubmit(state.searchValue);
+    }
+  };
+
   return (
     <div className="search">
       <label htmlFor="search">
@@ -43,6 +49,7 @@ export const SearchBar = (props: Props) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
             setState({ searchValue: event.target.value });
           }}
+          onKeyDown={handleKeyDown}
         />
       </label>
       <input
