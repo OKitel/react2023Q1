@@ -1,0 +1,115 @@
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEye,
+  faCalendar,
+  faBook,
+  faUser,
+  faLocationPin,
+} from '@fortawesome/free-solid-svg-icons';
+import { getOnePhoto } from '../../api/unsplash.photos';
+import { FullPhotoDTO } from '../../api/models';
+import './style.css';
+
+type Props = {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  imageId: string | undefined;
+};
+
+type ModalData = {
+  alt: string;
+  description: string;
+  imgSrc: string;
+  downloadLink: string;
+  userName: string;
+  userBio: string;
+  userLocation: string;
+  created: string;
+  views: number;
+};
+
+export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
+  const [rejected, setRejected] = useState(false);
+  const [modalPhoto, setModalPhoto] = useState<ModalData>();
+
+  const getPhoto = async (id: string | undefined) => {
+    const res: FullPhotoDTO | undefined = await getOnePhoto(id);
+    if (!res) {
+      setRejected(true);
+      return;
+    }
+
+    const date = new Date(res.created_at);
+    const convertedDate = date.toDateString();
+
+    const photo: ModalData = {
+      alt: res.alt_description,
+      description: res.description,
+      imgSrc: res.urls.regular,
+      downloadLink: res.links.download,
+      userName: res.user.name,
+      userBio: res.user.bio,
+      userLocation: res.user.location,
+      created: convertedDate,
+      views: res.views,
+    };
+    setModalPhoto(photo);
+  };
+
+  useEffect(() => {
+    getPhoto(imageId);
+  }, [imageId]);
+
+  return rejected ? (
+    <h3>Sorry, something went wrong...</h3>
+  ) : (
+    <div className="content-wrapper">
+      <img className="modal__image" src={modalPhoto?.imgSrc} alt={modalPhoto?.alt} />
+      <div className="modal-container">
+        <ul className="modal__info">
+          <li>
+            <h3>Photographer: {modalPhoto?.userName}</h3>
+          </li>
+          {modalPhoto?.userBio && (
+            <li>
+              <FontAwesomeIcon className="modal__icon" icon={faUser} /> {modalPhoto.userBio}
+            </li>
+          )}
+          {modalPhoto?.userLocation && (
+            <li>
+              <FontAwesomeIcon className="modal__icon" icon={faLocationPin} />
+              Location: {modalPhoto.userLocation}
+            </li>
+          )}
+          {modalPhoto?.description && (
+            <li>
+              <FontAwesomeIcon className="modal__icon" icon={faBook} /> {modalPhoto.description}
+            </li>
+          )}
+          {modalPhoto?.created && (
+            <li>
+              <FontAwesomeIcon className="modal__icon" icon={faCalendar} /> {modalPhoto.created}
+            </li>
+          )}
+          {modalPhoto?.views && (
+            <li>
+              <FontAwesomeIcon className="modal__icon" icon={faEye} /> {modalPhoto.views}
+            </li>
+          )}
+        </ul>
+        <a
+          className="modal__info-btn buttons"
+          href={modalPhoto?.downloadLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span>Download</span>
+        </a>
+      </div>
+
+      <button className="modal__btn buttons" type="button" onClick={() => setModalOpen(false)}>
+        <span>X</span>
+      </button>
+    </div>
+  );
+};

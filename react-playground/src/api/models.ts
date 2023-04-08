@@ -2,7 +2,6 @@ export interface PhotoDTO {
   id: string;
   urls: { small: string; regular: string };
   likes: number;
-  color: string;
   alt_description: string;
 }
 
@@ -23,4 +22,5 @@ export interface FullPhotoDTO extends PhotoDTO {
     download: string;
   };
   views: number;
+  created_at: string;
 }

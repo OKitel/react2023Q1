@@ -7,11 +7,12 @@ type Props = {
   imgSrc: string;
   likes: number;
   alt: string;
+  onClick: () => void;
 };
 
 export const Card: React.FC<Props> = (props: Props) => {
   return (
-    <div className="cardContainer">
+    <div className="cardContainer" onClick={props.onClick}>
       <img className="cardImg" src={props.imgSrc} alt={props.alt} />
       <div className="cardFooter">
         <div className="cardFooterElement">

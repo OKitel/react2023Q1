@@ -1,7 +1,9 @@
-import { SearchBar } from '../../SearchBar/SearchBar';
 import React, { useState } from 'react';
+import { SearchBar } from '../../SearchBar/SearchBar';
 import './style.css';
 import { Card } from '../../Card/Card';
+import { Modal } from '../../Modal/Modal';
+import { ModalContent } from '../../Modal/ModalContent';
 import { getPhotoList } from '../../../api/unsplash.photos';
 import { ApiResponse, PhotoDTO } from '../../../api/models';
 
@@ -12,24 +14,16 @@ type CardData = {
   alt: string;
 };
 
-// type ModalData = {
-//   alt: string;
-//   description: string;
-//   imgSrc: string;
-//   downloadLink: string;
-//   userName: string;
-//   userBio: string;
-//   userLocation: string;
-//   created: string;
-//   color: string;
-//   views: number;
-// };
-
 export const Home: React.FC = () => {
   const [cardsData, setCardsData] = useState<Array<CardData>>([]);
   const [rejected, setRejected] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | undefined>();
 
-  console.log(rejected);
+  const onClick = async (id: string) => {
+    setSelectedId(id);
+    setModalOpen(true);
+  };
 
   const onSubmit = async (value: string) => {
     const data: ApiResponse | undefined = await getPhotoList(value);
@@ -49,13 +43,26 @@ export const Home: React.FC = () => {
   };
   const cards = cardsData.map((item) => {
     const card = item;
-    return <Card key={card.id} imgSrc={card.imgSrc} likes={card.likes} alt={card.alt} />;
+    return (
+      <Card
+        key={card.id}
+        imgSrc={card.imgSrc}
+        likes={card.likes}
+        alt={card.alt}
+        onClick={() => onClick(card.id)}
+      />
+    );
   });
 
-  return (
+  return rejected ? (
+    <h3>Sorry, something went wrong...</h3>
+  ) : (
     <>
       <SearchBar onSubmit={onSubmit} />
       <div className="cardsField">{cards}</div>
+      <Modal modalOpen={modalOpen}>
+        <ModalContent setModalOpen={setModalOpen} imageId={selectedId} />
+      </Modal>
     </>
   );
 };
