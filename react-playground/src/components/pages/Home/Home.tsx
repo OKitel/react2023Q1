@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { SearchBar } from '../../SearchBar/SearchBar';
-import './style.css';
 import { Card } from '../../Card/Card';
 import { Modal } from '../../Modal/Modal';
 import { ModalContent } from '../../Modal/ModalContent';
 import { getPhotoList } from '../../../api/unsplash.photos';
 import { ApiResponse, PhotoDTO } from '../../../api/models';
+import { Loader } from '../../Loader/Loader';
+import './style.css';
 
 type CardData = {
   id: string;
@@ -19,6 +20,7 @@ export const Home: React.FC = () => {
   const [rejected, setRejected] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const onClick = async (id: string) => {
     setSelectedId(id);
@@ -28,6 +30,7 @@ export const Home: React.FC = () => {
   const onSubmit = async (value: string) => {
     const data: ApiResponse | undefined = await getPhotoList(value);
     if (!data) {
+      setIsLoading(false);
       setRejected(true);
       return;
     }
@@ -40,7 +43,9 @@ export const Home: React.FC = () => {
       };
     });
     setCardsData(cards);
+    setIsLoading(false);
   };
+
   const cards = cardsData.map((item) => {
     const card = item;
     return (
@@ -54,11 +59,11 @@ export const Home: React.FC = () => {
     );
   });
 
-  return rejected ? (
-    <h3>Sorry, something went wrong...</h3>
-  ) : (
+  return (
     <>
       <SearchBar onSubmit={onSubmit} />
+      {rejected && <h3>Sorry, something went wrong...</h3>}
+      {isLoading && <Loader />}
       <div className="cardsField">{cards}</div>
       <Modal modalOpen={modalOpen}>
         <ModalContent setModalOpen={setModalOpen} imageId={selectedId} />

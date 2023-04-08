@@ -3,6 +3,8 @@ export interface PhotoDTO {
   urls: { small: string; regular: string };
   likes: number;
   alt_description: string;
+  width: number;
+  height: number;
 }
 
 export interface ApiResponse {
