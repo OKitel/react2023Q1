@@ -74,7 +74,10 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
       {rejected && <h3>Sorry, something went wrong...</h3>}
       {!isLoading && !rejected && (
         <>
-          <img className="modal__image" src={modalPhoto?.imgSrc} alt={modalPhoto?.alt} />
+          <div className="image-container">
+            <img className="modal__image" src={modalPhoto?.imgSrc} alt={modalPhoto?.alt} />
+          </div>
+
           <div className="modal-container">
             <ul className="modal__info">
               {modalPhoto?.userName && (

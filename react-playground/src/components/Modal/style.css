@@ -12,7 +12,7 @@
 
 .content-wrapper {
   min-width: 300px;
-  width: 80%;
+  width: 60%;
   min-height: 300px;
   height: 80%;
   display: grid;
@@ -21,6 +21,7 @@
   border-radius: 5px;
   padding: 40px;
   position: relative;
+  overflow: hidden;
 }
 
 .modal-container {
@@ -29,9 +30,14 @@
   align-items: center;
 }
 
+.image-container {
+  max-width: 500px;
+}
+
 .modal__image {
+  height: 100%;
   width: 100%;
-  height: auto;
+  object-fit: contain;
 }
 
 .modal__info {
