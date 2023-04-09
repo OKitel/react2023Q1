@@ -10,6 +10,7 @@ import {
 import { getOnePhoto } from '../../api/unsplash.photos';
 import { FullPhotoDTO } from '../../api/models';
 import { Loader } from '../Loader/Loader';
+import { Toast } from '../Toast/Toast';
 import './style.css';
 
 type Props = {
@@ -36,6 +37,7 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
   const [modalPhoto, setModalPhoto] = useState<ModalData>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const getPhoto = async (id: string | undefined) => {
     const res: FullPhotoDTO | undefined = await getOnePhoto(id);
@@ -49,6 +51,7 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
     if (!res || res.status !== 200) {
       setIsLoading(false);
       setRejected(true);
+      setShowToast(true);
       return;
     }
 
@@ -76,15 +79,14 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
     getPhoto(imageId);
   }, [imageId]);
 
+  const onToastClose = () => {
+    setShowToast(false);
+  };
+
   return (
     <div className="content-wrapper">
       {isLoading && <Loader />}
-      {rejected && (
-        <>
-          <h3>Sorry, something went wrong...</h3>
-          <p>{errorMessage}</p>
-        </>
-      )}
+      <Toast message={errorMessage} show={showToast} onClose={onToastClose} />
       {!isLoading && !rejected && (
         <>
           <div className="image-container">

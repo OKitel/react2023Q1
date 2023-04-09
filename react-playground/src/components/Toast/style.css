@@ -1,0 +1,55 @@
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: none;
+  width: 300px;
+  background-color: #f44336;
+  color: #f4f4f4;
+  font-size: 16px;
+  padding: 16px;
+  border-radius: 5px;
+}
+
+.show {
+  display: block;
+}
+
+.toast-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.btn-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  font-family: 'Ubuntu', sans-serif;
+  color: #f4f4f4;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.toast-body {
+  margin-top: 8px;
+}

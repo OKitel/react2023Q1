@@ -6,6 +6,7 @@ import { ModalContent } from '../../Modal/ModalContent';
 import { getPhotoList } from '../../../api/unsplash.photos';
 import { ApiResponse, PhotoDTO } from '../../../api/models';
 import { Loader } from '../../Loader/Loader';
+import { Toast } from '../../Toast/Toast';
 import './style.css';
 
 type CardData = {
@@ -24,6 +25,7 @@ export const Home: React.FC = () => {
   const [lastSuccessfulQuery, setLastSuccessfulQuery] = useState<string | undefined>();
   const [totalResults, setTotalResults] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const savedValue = localStorage.getItem('searchValue');
   const initialValue = savedValue ? JSON.parse(savedValue) : '';
@@ -54,6 +56,7 @@ export const Home: React.FC = () => {
     if (!data || data.status !== 200) {
       setIsLoading(false);
       setRejected(true);
+      setShowToast(true);
       return;
     }
 
@@ -86,6 +89,10 @@ export const Home: React.FC = () => {
     );
   });
 
+  const onToastClose = () => {
+    setShowToast(false);
+  };
+
   return (
     <>
       <SearchBar onSubmit={onSubmit} />
@@ -94,12 +101,7 @@ export const Home: React.FC = () => {
           Found {totalResults} results for &quot;{lastSuccessfulQuery}&quot;
         </h3>
       )}
-      {rejected && (
-        <>
-          <h3>Sorry, something went wrong...</h3>
-          <p>{errorMessage}</p>
-        </>
-      )}
+      <Toast message={errorMessage} show={showToast} onClose={onToastClose} />
       {isLoading && <Loader />}
       {!rejected && <div className="cardsField">{cards}</div>}
       <Modal modalOpen={modalOpen}>
