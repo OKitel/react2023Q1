@@ -4,8 +4,8 @@ import { Card } from '../components/Card/Card';
 
 describe('Card test', () => {
   test('Should show card title', () => {
-    render(<Card key="1" imgSrc="#" title="Test title" views={13} likes={13} shares={1} />);
+    render(<Card key="1" imgSrc="#" likes={1113} alt="some text here" onClick={() => {}} />);
 
-    expect(screen.getByText(/Test title/i)).toBeDefined();
+    expect(screen.getByText('1113')).toBeDefined();
   });
 });

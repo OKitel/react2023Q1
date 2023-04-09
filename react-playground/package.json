@@ -45,6 +45,8 @@
     "happy-dom": "^8.9.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
+    "msw": "^1.2.1",
+    "cross-fetch": "^3.1.5",
     "prettier": "^2.8.7",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",

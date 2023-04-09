@@ -1,7 +1,8 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { Home } from '../components/pages/Home/Home';
 import { MemoryRouter } from 'react-router-dom';
+import { resList } from '../mocks/res';
 
 describe('Home test', () => {
   test('Should show search bar', () => {
@@ -14,16 +15,19 @@ describe('Home test', () => {
     expect(screen.getByPlaceholderText(/Type here.../i)).toBeDefined();
   });
 
-  test('should render cardsField with correct number of cards', () => {
-    const { container } = render(
+  test('should render cardsField with correct number of cards', async () => {
+    render(
       <MemoryRouter initialEntries={['/']}>
         <Home />
       </MemoryRouter>
     );
-    const cardsField = container.querySelector('.cardsField');
 
-    expect(cardsField).toBeDefined();
+    await waitForElementToBeRemoved(() => screen.getByRole('loader'));
 
-    expect(screen.getAllByRole('img')).toHaveLength(8);
+    resList.results.forEach((card) => {
+      expect(screen.getByText(card.likes)).toBeDefined();
+    });
+
+    expect(screen.getAllByRole('img')).toHaveLength(10);
   });
 });

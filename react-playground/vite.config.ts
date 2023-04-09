@@ -13,6 +13,7 @@ export default defineConfig({
       provider: 'istanbul',
       all: true,
     },
+    setupFiles: ['./src/test/setupTests.ts'],
   },
   server: {
     proxy: {
