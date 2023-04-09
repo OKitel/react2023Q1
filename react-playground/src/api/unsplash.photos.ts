@@ -27,8 +27,10 @@ export const getOnePhoto = async (id: string | undefined): Promise<FullPhotoDTO 
   try {
     const URL = `${BASE_URL}/photos/${id}`;
     const response = await fetch(URL, httpOptions);
+    const status = response.status;
+    const statusText = response.statusText;
     const data = await response.json();
-    return data;
+    return { ...data, status, statusText };
   } catch (err) {
     console.log(err);
   }

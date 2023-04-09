@@ -35,10 +35,18 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
   const [rejected, setRejected] = useState(false);
   const [modalPhoto, setModalPhoto] = useState<ModalData>();
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
   const getPhoto = async (id: string | undefined) => {
     const res: FullPhotoDTO | undefined = await getOnePhoto(id);
-    if (!res) {
+
+    if (res && res.status !== 200) {
+      setErrorMessage('HTTP response: ' + res.statusText);
+    } else {
+      setErrorMessage('');
+    }
+
+    if (!res || res.status !== 200) {
       setIsLoading(false);
       setRejected(true);
       return;
@@ -71,7 +79,12 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
   return (
     <div className="content-wrapper">
       {isLoading && <Loader />}
-      {rejected && <h3>Sorry, something went wrong...</h3>}
+      {rejected && (
+        <>
+          <h3>Sorry, something went wrong...</h3>
+          <p>{errorMessage}</p>
+        </>
+      )}
       {!isLoading && !rejected && (
         <>
           <div className="image-container">

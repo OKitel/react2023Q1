@@ -27,4 +27,6 @@ export interface FullPhotoDTO extends PhotoDTO {
   };
   views: number;
   created_at: string;
+  status: number;
+  statusText: string;
 }
