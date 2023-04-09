@@ -21,10 +21,11 @@ export const Home: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(true);
+  const [lastSuccessfulQuery, setLastSuccessfulQuery] = useState<string | undefined>();
+  const [totalResults, setTotalResults] = useState<number>(0);
 
   const savedValue = localStorage.getItem('searchValue');
   const initialValue = savedValue ? JSON.parse(savedValue) : '';
-  console.log(savedValue, initialValue);
 
   useEffect(() => {
     onSubmit(initialValue);
@@ -42,6 +43,8 @@ export const Home: React.FC = () => {
       setRejected(true);
       return;
     }
+    setLastSuccessfulQuery(value);
+    setTotalResults(data.total);
     const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
       return {
         id: item.id,
@@ -71,6 +74,11 @@ export const Home: React.FC = () => {
   return (
     <>
       <SearchBar onSubmit={onSubmit} />
+      {lastSuccessfulQuery && (
+        <h3>
+          Found {totalResults} results for &quot;{lastSuccessfulQuery}&quot;
+        </h3>
+      )}
       {rejected && <h3>Sorry, something went wrong...</h3>}
       {isLoading && <Loader />}
       <div className="cardsField">{cards}</div>
