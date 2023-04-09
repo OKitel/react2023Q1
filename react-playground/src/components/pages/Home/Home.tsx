@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchBar } from '../../SearchBar/SearchBar';
 import { Card } from '../../Card/Card';
 import { Modal } from '../../Modal/Modal';
@@ -22,6 +22,14 @@ export const Home: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(true);
 
+  const savedValue = localStorage.getItem('searchValue');
+  const initialValue = savedValue ? JSON.parse(savedValue) : '';
+  console.log(savedValue, initialValue);
+
+  useEffect(() => {
+    onSubmit(initialValue);
+  }, [initialValue]);
+
   const onClick = async (id: string) => {
     setSelectedId(id);
     setModalOpen(true);
@@ -44,6 +52,7 @@ export const Home: React.FC = () => {
     });
     setCardsData(cards);
     setIsLoading(false);
+    setRejected(false);
   };
 
   const cards = cardsData.map((item) => {

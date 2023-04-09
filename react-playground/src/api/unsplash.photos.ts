@@ -10,7 +10,7 @@ const httpOptions = {
 };
 export const getPhotoList = async (value: string): Promise<ApiResponse | undefined> => {
   try {
-    const val = value ? value : '';
+    const val = value ? value : 'wolves';
     const URL = `${BASE_URL}/search/photos?query=${val}`;
     const response = await fetch(URL, httpOptions);
     const data = await response.json();
