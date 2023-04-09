@@ -41,40 +41,43 @@ export const Home: React.FC = () => {
 
   const onSubmit = async (value: string) => {
     setIsLoading(true);
-    const data: ApiResponse | undefined = await getPhotoList(value);
-    if (data && data.status !== 200) {
-      if (data.status === 401) {
-        setErrorMessage(
-          'Dear RSS Reviewer! Please, set your access key in the .env file. Find all instructions in the PR or README file.'
-        );
+    try {
+      localStorage.setItem('searchValue', JSON.stringify(value));
+      const data: ApiResponse | undefined = await getPhotoList(value);
+      if (data && data.status !== 200) {
+        if (data.status === 401) {
+          setErrorMessage(
+            'Dear RSS Reviewer! Please, set your access key in the .env file. Find all instructions in the PR or README file.'
+          );
+        } else {
+          setErrorMessage('HTTP response: ' + data.statusText);
+        }
       } else {
-        setErrorMessage('HTTP response: ' + data.statusText);
+        setErrorMessage('');
       }
-    } else {
-      setErrorMessage('');
-    }
 
-    if (!data || data.status !== 200) {
+      if (!data || data.status !== 200) {
+        setRejected(true);
+        setShowToast(true);
+        return;
+      }
+
+      setLastSuccessfulQuery(value);
+      setTotalResults(data.total);
+
+      const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
+        return {
+          id: item.id,
+          imgSrc: item.urls.small,
+          alt: item.alt_description,
+          likes: item.likes,
+        };
+      });
+      setCardsData(cards);
+      setRejected(false);
+    } finally {
       setIsLoading(false);
-      setRejected(true);
-      setShowToast(true);
-      return;
     }
-
-    setLastSuccessfulQuery(value);
-    setTotalResults(data.total);
-
-    const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
-      return {
-        id: item.id,
-        imgSrc: item.urls.small,
-        alt: item.alt_description,
-        likes: item.likes,
-      };
-    });
-    setCardsData(cards);
-    setIsLoading(false);
-    setRejected(false);
   };
 
   const cards = cardsData.map((item) => {

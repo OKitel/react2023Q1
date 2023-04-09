@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, KeyboardEvent } from 'react';
+import React, { useState, useRef, KeyboardEvent } from 'react';
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -21,13 +21,6 @@ export const SearchBar = (props: Props) => {
   };
 
   const [state, setState] = useState<State>(initialValue);
-
-  useEffect(() => {
-    const current = refInput.current;
-    return () => {
-      localStorage.setItem('searchValue', JSON.stringify(current?.value ?? ''));
-    };
-  }, [refInput]);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
