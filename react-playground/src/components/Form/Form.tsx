@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { FormData, FormValues } from '../../models';
+import { FormData, FormValues } from '../../shared/models';
 import { UserNameInput } from './FormComponents/UserNameInput';
 import { BirthDateInput } from './FormComponents/BirthDateInput';
 import { SelectCountry } from './FormComponents/SelectCountry';

@@ -13,5 +13,15 @@ export default defineConfig({
       provider: 'istanbul',
       all: true,
     },
+    setupFiles: ['./src/test/setupTests.ts'],
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.unsplash.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });

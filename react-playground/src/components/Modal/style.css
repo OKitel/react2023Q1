@@ -1,0 +1,96 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.content-wrapper {
+  min-width: 300px;
+  width: 60%;
+  min-height: 300px;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 50% 1fr 3%;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  max-width: 500px;
+}
+
+.modal__image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.modal__info {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal__info li {
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(176, 183, 180, 0.9);
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(56, 59, 58);
+  cursor: pointer;
+  transition: 0.5s;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal__btn {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.modal__btn:hover,
+.modal__info-btn:hover {
+  background: rgb(56, 59, 58);
+  color: #f4f4f4;
+}
+
+.modal__info-btn {
+  width: 170px;
+  height: 30px;
+  padding: 5px;
+}
+
+.modal__icon {
+  margin-right: 5px;
+  color: #cdd4c5;
+  transition: 0.5s;
+}
+
+.modal__icon:hover {
+  color: #7a7c78;
+}

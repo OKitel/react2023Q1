@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormData } from '../../models';
+import { FormData } from '../../shared/models';
 import './style.css';
 
 type Props = {
