@@ -8,13 +8,16 @@ const httpOptions = {
     Authorization: `Client-ID ${API_ACCESS_TOKEN}`,
   },
 };
+
 export const getPhotoList = async (value: string): Promise<ApiResponse | undefined> => {
   try {
     const val = value ? value : 'wolves';
     const URL = `${BASE_URL}/search/photos?query=${val}`;
     const response = await fetch(URL, httpOptions);
+    const status = response.status;
+    const statusText = response.statusText;
     const data = await response.json();
-    return data;
+    return { ...data, status, statusText };
   } catch (err) {
     console.log(err);
   }

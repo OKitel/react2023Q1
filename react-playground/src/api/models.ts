@@ -11,6 +11,8 @@ export interface ApiResponse {
   total: number;
   total_pages: number;
   results: PhotoDTO[];
+  status: number;
+  statusText: string;
 }
 
 export interface FullPhotoDTO extends PhotoDTO {

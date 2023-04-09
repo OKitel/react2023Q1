@@ -23,6 +23,7 @@ export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastSuccessfulQuery, setLastSuccessfulQuery] = useState<string | undefined>();
   const [totalResults, setTotalResults] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
   const savedValue = localStorage.getItem('searchValue');
   const initialValue = savedValue ? JSON.parse(savedValue) : '';
@@ -38,13 +39,27 @@ export const Home: React.FC = () => {
 
   const onSubmit = async (value: string) => {
     const data: ApiResponse | undefined = await getPhotoList(value);
-    if (!data) {
+    if (data && data.status !== 200) {
+      if (data.status === 401) {
+        setErrorMessage(
+          'Dear RSS Reviewer! Please, set your access key in the .env file. Find all instructions in the PR or README file.'
+        );
+      } else {
+        setErrorMessage('HTTP response: ' + data.statusText);
+      }
+    } else {
+      setErrorMessage('');
+    }
+
+    if (!data || data.status !== 200) {
       setIsLoading(false);
       setRejected(true);
       return;
     }
+
     setLastSuccessfulQuery(value);
     setTotalResults(data.total);
+
     const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
       return {
         id: item.id,
@@ -74,14 +89,19 @@ export const Home: React.FC = () => {
   return (
     <>
       <SearchBar onSubmit={onSubmit} />
-      {lastSuccessfulQuery && (
+      {lastSuccessfulQuery && !rejected && (
         <h3>
           Found {totalResults} results for &quot;{lastSuccessfulQuery}&quot;
         </h3>
       )}
-      {rejected && <h3>Sorry, something went wrong...</h3>}
+      {rejected && (
+        <>
+          <h3>Sorry, something went wrong...</h3>
+          <p>{errorMessage}</p>
+        </>
+      )}
       {isLoading && <Loader />}
-      <div className="cardsField">{cards}</div>
+      {!rejected && <div className="cardsField">{cards}</div>}
       <Modal modalOpen={modalOpen}>
         <ModalContent setModalOpen={setModalOpen} imageId={selectedId} />
       </Modal>
