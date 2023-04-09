@@ -6,6 +6,7 @@ import {
   faBook,
   faUser,
   faLocationPin,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { getOnePhoto } from '../../api/unsplash.photos';
 import { FullPhotoDTO } from '../../api/models';
@@ -27,6 +28,7 @@ type ModalData = {
   userBio: string;
   userLocation: string;
   created: string;
+  likes: number;
   views: number;
   width: number;
   height: number;
@@ -67,6 +69,7 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
       userBio: res.user.bio,
       userLocation: res.user.location,
       created: convertedDate,
+      likes: res.likes,
       views: res.views,
       width: res.width,
       height: res.height,
@@ -119,6 +122,11 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
               {modalPhoto?.created && (
                 <li>
                   <FontAwesomeIcon className="modal__icon" icon={faCalendar} /> {modalPhoto.created}
+                </li>
+              )}
+              {modalPhoto?.likes && (
+                <li>
+                  <FontAwesomeIcon className="modal__icon" icon={faHeart} /> {modalPhoto.likes}
                 </li>
               )}
               {modalPhoto?.views && (
