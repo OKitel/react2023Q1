@@ -40,6 +40,7 @@ export const Home: React.FC = () => {
   };
 
   const onSubmit = async (value: string) => {
+    setIsLoading(true);
     const data: ApiResponse | undefined = await getPhotoList(value);
     if (data && data.status !== 200) {
       if (data.status === 401) {
