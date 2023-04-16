@@ -4,7 +4,7 @@ import { Card } from '../../Card/Card';
 import { Modal } from '../../Modal/Modal';
 import { ModalContent } from '../../Modal/ModalContent';
 import { getPhotoList } from '../../../api/unsplash.photos';
-import { ApiResponse, PhotoDTO } from '../../../api/models';
+import { ApiResponse, PhotoDTO } from '../../../redux/models';
 import { Loader } from '../../Loader/Loader';
 import { Toast } from '../../Toast/Toast';
 import './style.css';

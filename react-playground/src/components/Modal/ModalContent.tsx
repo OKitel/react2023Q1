@@ -9,7 +9,7 @@ import {
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { getOnePhoto } from '../../api/unsplash.photos';
-import { FullPhotoDTO } from '../../api/models';
+import { FullPhotoDTO } from '../../redux/models';
 import { Loader } from '../Loader/Loader';
 import { Toast } from '../Toast/Toast';
 import './style.css';

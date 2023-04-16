@@ -1,6 +1,6 @@
 import { BASE_URL, API_ACCESS_TOKEN } from '../shared/constants';
 import { fetch } from 'cross-fetch';
-import { ApiResponse, FullPhotoDTO } from './models';
+import { ApiResponse, FullPhotoDTO } from '../redux/models';
 
 const httpOptions = {
   method: 'GET',
