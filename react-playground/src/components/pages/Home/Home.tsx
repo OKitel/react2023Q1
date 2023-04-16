@@ -3,7 +3,7 @@ import { SearchBar } from '../../SearchBar/SearchBar';
 import { Card } from '../../Card/Card';
 import { Modal } from '../../Modal/Modal';
 import { ModalContent } from '../../Modal/ModalContent';
-import { PhotoDTO } from '../../../redux/models';
+import { PhotoDTO } from '../../../redux/home/models';
 import { Loader } from '../../Loader/Loader';
 import { Toast } from '../../Toast/Toast';
 import { useGetPhotoListQuery } from '../../../redux/api';
@@ -26,7 +26,7 @@ export const Home: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [showToast, setShowToast] = useState<boolean>(false);
 
-  const { query } = useAppSelector((state) => state.photos);
+  const { query } = useAppSelector((state) => state.home);
 
   const { data, isFetching, error } = useGetPhotoListQuery({ query: query });
 

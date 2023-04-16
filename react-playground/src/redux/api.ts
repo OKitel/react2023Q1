@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL, API_ACCESS_TOKEN } from '../shared/constants';
-import { ApiResponse, FullPhotoDTO } from './models';
+import { ApiResponse, FullPhotoDTO } from './home/models';
 
 interface RequestParams {
   query: string;

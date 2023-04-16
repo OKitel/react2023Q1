@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api';
-import { photosReducer } from './reducers';
+import { homeReducer } from './home/reducers';
+import { formReducer } from './form/reducers';
 
 export const store = configureStore({
   reducer: {
-    photos: photosReducer,
+    home: homeReducer,
+    form: formReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {

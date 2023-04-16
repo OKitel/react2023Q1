@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormData } from '../../shared/models';
+import { FormData } from '../../redux/form/models';
 import './style.css';
 
 type Props = {

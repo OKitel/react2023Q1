@@ -12,7 +12,7 @@ const initialState: PhotosState = {
 };
 
 const photosSlice = createSlice({
-  name: 'photos',
+  name: 'home',
   initialState,
   reducers: {
     setPhotos(state, { payload }: PayloadAction<{ photos: Array<PhotoDTO> }>) {
@@ -25,5 +25,5 @@ const photosSlice = createSlice({
     },
   },
 });
-export const { actions, reducer: photosReducer } = photosSlice;
+export const { actions, reducer: homeReducer } = photosSlice;
 export const { setPhotos, setQuery } = actions;

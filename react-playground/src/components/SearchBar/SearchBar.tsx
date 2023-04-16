@@ -3,10 +3,10 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setQuery } from '../../redux/reducers';
+import { setQuery } from '../../redux/home/reducers';
 
 export const SearchBar = () => {
-  const { query } = useAppSelector((state) => state.photos);
+  const { query } = useAppSelector((state) => state.home);
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState<string>(query);
 
