@@ -7,6 +7,7 @@ import { PhotoDTO } from '../../../redux/models';
 import { Loader } from '../../Loader/Loader';
 import { Toast } from '../../Toast/Toast';
 import { useGetPhotoListQuery } from '../../../redux/api';
+import { useAppSelector } from '../../../redux/hooks';
 import './style.css';
 
 type CardData = {
@@ -24,16 +25,10 @@ export const Home: React.FC = () => {
   const [lastSuccessfulQuery, setLastSuccessfulQuery] = useState<string | undefined>();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [showToast, setShowToast] = useState<boolean>(false);
-  const [finalSearchQuery, setFinalSearchQuery] = useState<string>('');
 
-  const savedValue = localStorage.getItem('searchValue');
-  const initialValue = savedValue ? JSON.parse(savedValue) : '';
+  const { query } = useAppSelector((state) => state.photos);
 
-  useEffect(() => {
-    onSubmit(initialValue);
-  }, [initialValue]);
-
-  const { data, isFetching, error } = useGetPhotoListQuery({ query: finalSearchQuery });
+  const { data, isFetching, error } = useGetPhotoListQuery({ query: query });
 
   useEffect(() => {
     if (error) {
@@ -55,10 +50,10 @@ export const Home: React.FC = () => {
     }
 
     if (!error) {
-      setLastSuccessfulQuery(finalSearchQuery);
+      setLastSuccessfulQuery(query);
       setRejected(false);
     }
-  }, [error, finalSearchQuery]);
+  }, [error, query]);
 
   useEffect(() => {
     if (data) {
@@ -77,11 +72,6 @@ export const Home: React.FC = () => {
   const onClick = async (id: string) => {
     setSelectedId(id);
     setModalOpen(true);
-  };
-
-  const onSubmit = async (value: string) => {
-    setFinalSearchQuery(value);
-    localStorage.setItem('searchValue', JSON.stringify(value));
   };
 
   const cards = cardsData.map((item) => {
@@ -103,7 +93,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <SearchBar onSubmit={onSubmit} />
+      <SearchBar />
       {lastSuccessfulQuery && !rejected && (
         <h3>
           Found {data?.total} results for &quot;{lastSuccessfulQuery}&quot;

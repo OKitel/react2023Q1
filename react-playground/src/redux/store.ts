@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api';
+import { photosReducer } from './reducers';
 
 export const store = configureStore({
   reducer: {
+    photos: photosReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
