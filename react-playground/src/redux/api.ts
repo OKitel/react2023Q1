@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL, API_ACCESS_TOKEN } from '../shared/constants';
-import { ApiResponse, FullPhotoDTO } from './home/models';
+import {
+  ApiResponse,
+  CardData,
+  FullPhotoDTO,
+  PhotoDTO,
+  TransformedApiResponse,
+} from './home/models';
 
 interface RequestParams {
   query: string;
@@ -19,11 +25,23 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => {
     return {
-      getPhotoList: builder.query<ApiResponse, RequestParams>({
+      getPhotoList: builder.query<TransformedApiResponse, RequestParams>({
         query: (params: RequestParams) => {
           const { query } = params;
-          return `/search/photos?query=${query}`;
+          return `/search/photos?query=${query || 'wolves'}`;
         },
+        transformResponse: (response: ApiResponse): TransformedApiResponse => ({
+          total: response.total,
+          totalPages: response.total_pages,
+          cards: response.results.map((item: PhotoDTO): CardData => {
+            return {
+              id: item.id,
+              imgSrc: item.urls.small,
+              alt: item.alt_description,
+              likes: item.likes,
+            };
+          }),
+        }),
       }),
       getOnePhoto: builder.query<FullPhotoDTO, string>({
         query: (id: string) => {

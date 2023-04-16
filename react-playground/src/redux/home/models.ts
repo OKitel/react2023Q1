@@ -13,6 +13,19 @@ export interface ApiResponse {
   results: PhotoDTO[];
 }
 
+export type CardData = {
+  id: string;
+  imgSrc: string;
+  likes: number;
+  alt: string;
+};
+
+export interface TransformedApiResponse {
+  total: number;
+  totalPages: number;
+  cards: CardData[];
+}
+
 export interface FullPhotoDTO extends PhotoDTO {
   description: string;
   user: {

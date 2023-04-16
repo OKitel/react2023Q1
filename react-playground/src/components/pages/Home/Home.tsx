@@ -3,22 +3,13 @@ import { SearchBar } from '../../SearchBar/SearchBar';
 import { Card } from '../../Card/Card';
 import { Modal } from '../../Modal/Modal';
 import { ModalContent } from '../../Modal/ModalContent';
-import { PhotoDTO } from '../../../redux/home/models';
 import { Loader } from '../../Loader/Loader';
 import { Toast } from '../../Toast/Toast';
 import { useGetPhotoListQuery } from '../../../redux/api';
 import { useAppSelector } from '../../../redux/hooks';
 import './style.css';
 
-type CardData = {
-  id: string;
-  imgSrc: string;
-  likes: number;
-  alt: string;
-};
-
 export const Home: React.FC = () => {
-  const [cardsData, setCardsData] = useState<Array<CardData>>([]);
   const [rejected, setRejected] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | undefined>();
@@ -55,26 +46,12 @@ export const Home: React.FC = () => {
     }
   }, [error, query]);
 
-  useEffect(() => {
-    if (data) {
-      const cards: CardData[] = data.results.map((item: PhotoDTO): CardData => {
-        return {
-          id: item.id,
-          imgSrc: item.urls.small,
-          alt: item.alt_description,
-          likes: item.likes,
-        };
-      });
-      setCardsData(cards);
-    }
-  }, [data]);
-
   const onClick = async (id: string) => {
     setSelectedId(id);
     setModalOpen(true);
   };
 
-  const cards = cardsData.map((item) => {
+  const cards = data?.cards.map((item) => {
     const card = item;
     return (
       <Card
@@ -96,7 +73,8 @@ export const Home: React.FC = () => {
       <SearchBar />
       {lastSuccessfulQuery && !rejected && (
         <h3>
-          Found {data?.total} results for &quot;{lastSuccessfulQuery}&quot;
+          Found {isFetching ? '***' : data?.total} results for &quot;
+          {isFetching ? query : lastSuccessfulQuery}&quot;
         </h3>
       )}
       <Toast message={errorMessage} show={showToast} onClose={onToastClose} />
