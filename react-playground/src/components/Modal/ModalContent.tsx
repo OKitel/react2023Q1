@@ -8,15 +8,14 @@ import {
   faLocationPin,
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
-import { getOnePhoto } from '../../api/unsplash.photos';
-import { FullPhotoDTO } from '../../redux/models';
 import { Loader } from '../Loader/Loader';
 import { Toast } from '../Toast/Toast';
 import './style.css';
+import { useGetOnePhotoQuery } from '../../redux/api';
 
 type Props = {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  imageId: string | undefined;
+  imageId: string;
 };
 
 type ModalData = {
@@ -37,50 +36,50 @@ type ModalData = {
 export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
   const [rejected, setRejected] = useState(false);
   const [modalPhoto, setModalPhoto] = useState<ModalData>();
-  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [showToast, setShowToast] = useState<boolean>(false);
 
-  const getPhoto = async (id: string | undefined) => {
-    const res: FullPhotoDTO | undefined = await getOnePhoto(id);
-
-    if (res && res.status !== 200) {
-      setErrorMessage('HTTP response: ' + res.statusText);
-    } else {
-      setErrorMessage('');
-    }
-
-    if (!res || res.status !== 200) {
-      setIsLoading(false);
-      setRejected(true);
-      setShowToast(true);
-      return;
-    }
-
-    const date = new Date(res.created_at);
-    const convertedDate = date.toDateString();
-
-    const photo: ModalData = {
-      alt: res.alt_description,
-      description: res.description,
-      imgSrc: res.urls.regular,
-      downloadLink: res.links.download,
-      userName: res.user.name,
-      userBio: res.user.bio,
-      userLocation: res.user.location,
-      created: convertedDate,
-      likes: res.likes,
-      views: res.views,
-      width: res.width,
-      height: res.height,
-    };
-    setModalPhoto(photo);
-    setIsLoading(false);
-  };
+  const { data, isFetching, error } = useGetOnePhotoQuery(imageId);
 
   useEffect(() => {
-    getPhoto(imageId);
-  }, [imageId]);
+    if (error) {
+      if ('status' in error) {
+        if (error.status !== 200) {
+          setErrorMessage('HTTP response: ' + error.status);
+        } else {
+          setErrorMessage('');
+        }
+      }
+      setRejected(true);
+      setShowToast(true);
+    } else {
+      setRejected(false);
+      setShowToast(false);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data) {
+      const date = new Date(data.created_at);
+      const convertedDate = date.toDateString();
+
+      const photo: ModalData = {
+        alt: data.alt_description,
+        description: data.description,
+        imgSrc: data.urls.regular,
+        downloadLink: data.links.download,
+        userName: data.user.name,
+        userBio: data.user.bio,
+        userLocation: data.user.location,
+        created: convertedDate,
+        likes: data.likes,
+        views: data.views,
+        width: data.width,
+        height: data.height,
+      };
+      setModalPhoto(photo);
+    }
+  }, [data]);
 
   const onToastClose = () => {
     setShowToast(false);
@@ -88,9 +87,9 @@ export const ModalContent: React.FC<Props> = ({ setModalOpen, imageId }) => {
 
   return (
     <div className="content-wrapper">
-      {isLoading && <Loader />}
+      {isFetching && <Loader />}
       <Toast message={errorMessage} show={showToast} onClose={onToastClose} />
-      {!isLoading && !rejected && (
+      {!isFetching && !rejected && (
         <>
           <div className="image-container">
             <img className="modal__image" src={modalPhoto?.imgSrc} alt={modalPhoto?.alt} />

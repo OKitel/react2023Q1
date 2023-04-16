@@ -34,7 +34,6 @@ export const Home: React.FC = () => {
   }, [initialValue]);
 
   const { data, isFetching, error } = useGetPhotoListQuery({ query: finalSearchQuery });
-  console.log(error);
 
   useEffect(() => {
     if (error) {
@@ -113,9 +112,11 @@ export const Home: React.FC = () => {
       <Toast message={errorMessage} show={showToast} onClose={onToastClose} />
       {isFetching && <Loader />}
       {!rejected && <div className="cardsField">{cards}</div>}
-      <Modal modalOpen={modalOpen}>
-        <ModalContent setModalOpen={setModalOpen} imageId={selectedId} />
-      </Modal>
+      {selectedId && (
+        <Modal modalOpen={modalOpen}>
+          <ModalContent setModalOpen={setModalOpen} imageId={selectedId} />
+        </Modal>
+      )}
     </>
   );
 };
