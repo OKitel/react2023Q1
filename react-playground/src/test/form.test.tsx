@@ -4,13 +4,17 @@ import { FormPage } from '../components/pages/FormPage/FormPage';
 import { FormCard } from '../components/FormCard/FormCard';
 import { FormData } from '../redux/form/models';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 describe('Form page test', () => {
   test('Should show form', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <FormPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <FormPage />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByText('Name')).toBeDefined();
@@ -23,9 +27,11 @@ describe('Form page test', () => {
 
   test('Should check validation', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <FormPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <FormPage />
+        </MemoryRouter>
+      </Provider>
     );
 
     await act(async () => {
@@ -57,9 +63,11 @@ describe('Form page test', () => {
 
   test('Should upload file', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <FormPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <FormPage />
+        </MemoryRouter>
+      </Provider>
     );
 
     const file = new File(['(⌐□_□)'], 'test-image.png', { type: 'image/png' });

@@ -3,13 +3,17 @@ import { render, screen, waitForElementToBeRemoved, fireEvent, act } from '@test
 import { Home } from '../components/pages/Home/Home';
 import { MemoryRouter } from 'react-router-dom';
 import { resList } from '../mocks/res';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 describe('Home test', () => {
   test('Should show search bar', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByPlaceholderText(/Type here.../i)).toBeDefined();
@@ -17,9 +21,11 @@ describe('Home test', () => {
 
   test('should render cardsField with correct number of cards', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
 
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));
@@ -33,9 +39,11 @@ describe('Home test', () => {
 
   test('should test press Enter', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
     const input = screen.getByPlaceholderText(/Type here.../i);
 
@@ -50,9 +58,11 @@ describe('Home test', () => {
 
   test('should render modal with one photo', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
 
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));
