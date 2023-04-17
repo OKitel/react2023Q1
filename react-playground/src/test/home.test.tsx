@@ -1,31 +1,26 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen, waitForElementToBeRemoved, fireEvent, act } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved, fireEvent, act } from '@testing-library/react';
 import { Home } from '../components/pages/Home/Home';
 import { MemoryRouter } from 'react-router-dom';
 import { resList } from '../mocks/res';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { renderWithProviders } from './test-utils';
 
 describe('Home test', () => {
   test('Should show search bar', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <Home />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <Home />
+      </MemoryRouter>
     );
 
     expect(screen.getByPlaceholderText(/Type here.../i)).toBeDefined();
   });
 
   test('should render cardsField with correct number of cards', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <Home />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <Home />
+      </MemoryRouter>
     );
 
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));
@@ -38,13 +33,12 @@ describe('Home test', () => {
   });
 
   test('should test press Enter', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <Home />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <Home />
+      </MemoryRouter>
     );
+
     const input = screen.getByPlaceholderText(/Type here.../i);
 
     await act(() => {
@@ -57,12 +51,10 @@ describe('Home test', () => {
   });
 
   test('should render modal with one photo', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <Home />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <Home />
+      </MemoryRouter>
     );
 
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));

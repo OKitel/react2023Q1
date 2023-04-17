@@ -1,18 +1,15 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { App } from '../App';
 import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { renderWithProviders } from './test-utils';
 
 describe('App test', () => {
   test('Should render home page', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <App />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
     );
 
     expect(screen.getByText(/Home Page/i)).toBeDefined();
@@ -25,24 +22,20 @@ describe('App test', () => {
   });
 
   test('Should render about us page', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/about']}>
-          <App />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/about']}>
+        <App />
+      </MemoryRouter>
     );
 
     expect(screen.getAllByText(/About/i)).toBeDefined();
   });
 
   test('Should render not found page', () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/sdljfalsdkj']}>
-          <App />
-        </MemoryRouter>
-      </Provider>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/sdljfalsdkj']}>
+        <App />
+      </MemoryRouter>
     );
 
     expect(screen.getAllByText(/404/i)).toBeDefined();
