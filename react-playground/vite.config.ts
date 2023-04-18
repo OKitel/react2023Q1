@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), eslint()],
   test: {
     globals: true,
-    environment: 'happy-dom',
+    environment: 'jsdom',
     coverage: {
       provider: 'istanbul',
       all: true,

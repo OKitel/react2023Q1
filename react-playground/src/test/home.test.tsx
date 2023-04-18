@@ -4,6 +4,7 @@ import { Home } from '../components/pages/Home/Home';
 import { MemoryRouter } from 'react-router-dom';
 import { resList } from '../mocks/res';
 import { renderWithProviders } from './test-utils';
+import userEvent from '@testing-library/user-event';
 
 describe('Home test', () => {
   test('Should show search bar', () => {
@@ -56,14 +57,11 @@ describe('Home test', () => {
       </MemoryRouter>
     );
 
-    await act(() => {
-      waitForElementToBeRemoved(() => screen.getByRole('loader'));
+    await waitForElementToBeRemoved(() => screen.getByRole('loader'));
 
-      fireEvent.click(screen.getByAltText(/white and black siberian husky/i));
-
-      waitForElementToBeRemoved(() => screen.getByRole('loader'));
-    });
-
+    const picture = screen.getByAltText(/white and black siberian husky/i);
+    await userEvent.click(picture);
+    await waitForElementToBeRemoved(() => screen.getByRole('loader'));
     expect(screen.getByText(/Photographer: Linda Kazares/i)).toBeDefined();
   });
 });
