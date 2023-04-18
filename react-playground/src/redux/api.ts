@@ -28,12 +28,10 @@ export const apiSlice = createApi({
     return {
       getPhotoList: builder.query<TransformedApiResponse, RequestParams>({
         query: (params: RequestParams) => {
-          console.log('get photos list 1');
           const { query } = params;
           return `/search/photos?query=${query || 'wolves'}`;
         },
         transformResponse: (response: ApiResponse): TransformedApiResponse => {
-          console.log('transformResponse 1');
           return {
             total: response.total,
             totalPages: response.total_pages,
@@ -50,7 +48,6 @@ export const apiSlice = createApi({
       }),
       getOnePhoto: builder.query<FullPhotoDTO, string>({
         query: (id: string) => {
-          console.log('get one photo');
           return `/photos/${id}`;
         },
       }),
