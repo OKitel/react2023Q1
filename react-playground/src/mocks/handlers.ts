@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import { rest } from 'msw';
 import { resList, resPhoto } from './res';
 

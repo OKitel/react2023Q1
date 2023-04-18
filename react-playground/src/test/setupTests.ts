@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import { server } from '../mocks/server';
 import { beforeAll, afterEach, afterAll } from 'vitest';
 import { setupStore } from '../redux/store';

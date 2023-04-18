@@ -22,20 +22,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
     },
   });
 };
-// export const store = configureStore({
-//   reducer: {
-//     home: homeReducer,
-//     form: formReducer,
-//     [apiSlice.reducerPath]: apiSlice.reducer,
-//   },
-//   middleware: (getDefaultMiddleware) => {
-//     return getDefaultMiddleware().concat(apiSlice.middleware);
-//   },
-// });
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore['dispatch'];
-
-// export type AppDispatch = typeof store.dispatch;
-// export type RootState = ReturnType<typeof store.getState>;
