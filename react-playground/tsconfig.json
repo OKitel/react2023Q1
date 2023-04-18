@@ -19,6 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src"
   },
-  "include": ["src"],
+  "include": ["src", "node_modules/vitest/globals.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,10 +1,12 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { App } from '../App';
 import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
+
 describe('App test', () => {
   test('Should render home page', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
@@ -20,7 +22,7 @@ describe('App test', () => {
   });
 
   test('Should render about us page', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/about']}>
         <App />
       </MemoryRouter>
@@ -30,7 +32,7 @@ describe('App test', () => {
   });
 
   test('Should render not found page', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/sdljfalsdkj']}>
         <App />
       </MemoryRouter>

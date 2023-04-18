@@ -2,12 +2,13 @@ import { describe, test, expect } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { FormPage } from '../components/pages/FormPage/FormPage';
 import { FormCard } from '../components/FormCard/FormCard';
-import { FormData } from '../shared/models';
+import { FormData } from '../redux/form/models';
 import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
 
 describe('Form page test', () => {
   test('Should show form', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <FormPage />
       </MemoryRouter>
@@ -22,7 +23,7 @@ describe('Form page test', () => {
   });
 
   test('Should check validation', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <FormPage />
       </MemoryRouter>
@@ -56,7 +57,7 @@ describe('Form page test', () => {
   });
 
   test('Should upload file', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <FormPage />
       </MemoryRouter>

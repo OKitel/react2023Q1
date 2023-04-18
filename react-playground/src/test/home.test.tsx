@@ -1,12 +1,14 @@
 import { describe, test, expect } from 'vitest';
-import { render, screen, waitForElementToBeRemoved, fireEvent, act } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved, fireEvent, act } from '@testing-library/react';
 import { Home } from '../components/pages/Home/Home';
 import { MemoryRouter } from 'react-router-dom';
 import { resList } from '../mocks/res';
+import { renderWithProviders } from './test-utils';
+import userEvent from '@testing-library/user-event';
 
 describe('Home test', () => {
   test('Should show search bar', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <Home />
       </MemoryRouter>
@@ -16,7 +18,7 @@ describe('Home test', () => {
   });
 
   test('should render cardsField with correct number of cards', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <Home />
       </MemoryRouter>
@@ -31,12 +33,13 @@ describe('Home test', () => {
     expect(screen.getAllByRole('img')).toHaveLength(10);
   });
 
-  test('should test press Enter', async () => {
-    render(
+  test('should search after press Enter', async () => {
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <Home />
       </MemoryRouter>
     );
+
     const input = screen.getByPlaceholderText(/Type here.../i);
 
     await act(() => {
@@ -44,12 +47,11 @@ describe('Home test', () => {
       fireEvent.change(input, { target: { value: 'cats' } });
       fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
     });
-
     expect(screen.getByText(/results for "cats"/i)).toBeDefined();
   });
 
   test('should render modal with one photo', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <Home />
       </MemoryRouter>
@@ -57,10 +59,9 @@ describe('Home test', () => {
 
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));
 
-    await fireEvent.click(screen.getByAltText(/white and black siberian husky/i));
-
+    const picture = screen.getByAltText(/white and black siberian husky/i);
+    await userEvent.click(picture);
     await waitForElementToBeRemoved(() => screen.getByRole('loader'));
-
     expect(screen.getByText(/Photographer: Linda Kazares/i)).toBeDefined();
   });
 });

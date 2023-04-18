@@ -1,31 +1,23 @@
-import React, { useState, useRef, KeyboardEvent } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setQuery } from '../../redux/home/reducers';
 
-interface State {
-  searchValue: string;
-}
-
-type Props = {
-  onSubmit: (value: string) => void;
-};
-
-export const SearchBar = (props: Props) => {
-  const refInput: React.RefObject<HTMLInputElement> = useRef(null);
-
-  const savedState = localStorage.getItem('searchValue');
-
-  const initialValue = {
-    searchValue: savedState ? JSON.parse(savedState) : '',
-  };
-
-  const [state, setState] = useState<State>(initialValue);
+export const SearchBar = () => {
+  const { query } = useAppSelector((state) => state.home);
+  const dispatch = useAppDispatch();
+  const [searchValue, setSearchValue] = useState<string>(query);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
-      props.onSubmit(state.searchValue);
+      onSearchBtnClick();
     }
+  };
+
+  const onSearchBtnClick = () => {
+    dispatch(setQuery(searchValue));
   };
 
   return (
@@ -37,20 +29,14 @@ export const SearchBar = (props: Props) => {
           id="search"
           type="text"
           placeholder="Type here..."
-          value={state.searchValue}
-          ref={refInput}
+          value={searchValue}
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-            setState({ searchValue: event.target.value });
+            setSearchValue(event.target.value);
           }}
           onKeyDown={handleKeyDown}
         />
       </label>
-      <input
-        className="searchBtn"
-        type="submit"
-        value="Search"
-        onClick={() => props.onSubmit(state.searchValue)}
-      />
+      <input className="searchBtn" type="submit" value="Search" onClick={onSearchBtnClick} />
     </div>
   );
 };

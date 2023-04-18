@@ -11,8 +11,19 @@ export interface ApiResponse {
   total: number;
   total_pages: number;
   results: PhotoDTO[];
-  status: number;
-  statusText: string;
+}
+
+export type CardData = {
+  id: string;
+  imgSrc: string;
+  likes: number;
+  alt: string;
+};
+
+export interface TransformedApiResponse {
+  total: number;
+  totalPages: number;
+  cards: CardData[];
 }
 
 export interface FullPhotoDTO extends PhotoDTO {
@@ -27,6 +38,4 @@ export interface FullPhotoDTO extends PhotoDTO {
   };
   views: number;
   created_at: string;
-  status: number;
-  statusText: string;
 }
