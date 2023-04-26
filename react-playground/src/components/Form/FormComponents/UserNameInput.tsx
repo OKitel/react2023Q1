@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { FormValues } from '../../../redux/form/models';
+import { FormValues } from 'redux/form';
 import { UseFormRegister } from 'react-hook-form';
 
 type Props = {
