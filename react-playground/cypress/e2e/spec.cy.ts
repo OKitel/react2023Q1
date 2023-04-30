@@ -1,7 +1,7 @@
 import '@cypress/code-coverage/support';
 
 describe('e2e tests for react playground', () => {
-  const URL = 'http://localhost:8081/';
+  const URL = 'http://localhost:8080/';
 
   it('Visits react playground app pages', () => {
     cy.visit(URL);
