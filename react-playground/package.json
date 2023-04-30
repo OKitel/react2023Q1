@@ -14,7 +14,10 @@
     "lint": "eslint .",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/server/entry-server.tsx",
+    "build:ssr": "npm run build:client && npm run build:server"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
