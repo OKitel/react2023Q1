@@ -15,6 +15,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
+    "e2e": "npx cypress run --env coverage=true && npx nyc report --reporter=text-summary",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/server/entry-server.tsx",
     "build:ssr": "npm run build:client && npm run build:server"
@@ -37,6 +38,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.4",
     "@testing-library/react": "^14.0.0",
     "@types/express": "^4.17.17",
     "@types/node": "^18.16.1",
@@ -60,11 +62,13 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "msw": "^1.2.1",
+    "nyc": "^15.1.0",
     "prettier": "^2.8.7",
     "redux-devtools-extension": "^2.13.9",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-istanbul": "^4.0.1",
     "vitest": "0.29.3"
   }
 }

@@ -1,3 +1,5 @@
+import '@cypress/code-coverage/support';
+
 describe('e2e test for react playground', () => {
   const URL = 'http://localhost:8081/';
 
