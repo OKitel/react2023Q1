@@ -1,5 +1,31 @@
 describe('e2e test for react playground', () => {
-  it('Visits the Kitchen Sink', () => {
-    cy.visit('https://example.cypress.io');
+  const URL = 'http://localhost:8081/';
+
+  it('Visits react playground app pages', () => {
+    cy.visit(URL);
+    cy.contains('About us').click();
+    cy.contains('Home Page').click();
+    cy.contains('Form').click();
+  });
+
+  it('Visits 404 page', () => {
+    cy.visit(`${URL}/abra-kadabra`);
+    cy.contains('404');
+    cy.contains('Sorry! The page you are looking for could not be found...');
+  });
+
+  it('Search input accepts text', () => {
+    cy.visit(URL);
+    cy.get('[placeholder="Type here..."]').type('cats');
+    cy.get('[placeholder="Type here..."]').should('have.value', 'cats');
+  });
+
+  it('Check that search query is restored when user navigates back to home', () => {
+    cy.visit(URL);
+    cy.get('[placeholder="Type here..."]').type('cats');
+    cy.get('[type="submit"]').click();
+    cy.contains('About us').click();
+    cy.contains('Home Page').click();
+    cy.get('[placeholder="Type here..."]').should('have.value', 'cats');
   });
 });
