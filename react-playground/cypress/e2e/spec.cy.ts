@@ -1,6 +1,6 @@
 import '@cypress/code-coverage/support';
 
-describe('e2e test for react playground', () => {
+describe('e2e tests for react playground', () => {
   const URL = 'http://localhost:8081/';
 
   it('Visits react playground app pages', () => {
@@ -29,5 +29,11 @@ describe('e2e test for react playground', () => {
     cy.contains('About us').click();
     cy.contains('Home Page').click();
     cy.get('[placeholder="Type here..."]').should('have.value', 'cats');
+  });
+
+  it('Check if modal opens', () => {
+    cy.visit(URL);
+    cy.get('[alt="white and black siberian husky"]').click();
+    cy.contains('Linda Kazares');
   });
 });
