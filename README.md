@@ -12,17 +12,19 @@ Script for eslint check:
 npm run lint
 ```
 
-Script for running tests with coverage:
-
-```sh
-npm run coverage
-```
-
 Script for running application:
 
 ```sh
 npm run dev
 ```
+
+Script for running e2e tests with coverage:
+
+```sh
+npm run e2e
+```
+
+Note! Please start application first and then run e2e tests script.
 
 ## !important
 

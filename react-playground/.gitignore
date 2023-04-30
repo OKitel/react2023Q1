@@ -27,3 +27,7 @@ coverage/
 .vite/
 
 .env
+
+.nyc_output/
+
+*.mp4

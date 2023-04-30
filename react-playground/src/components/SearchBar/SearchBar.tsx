@@ -3,7 +3,7 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setQuery } from '../../redux/home/reducers';
+import { setQuery } from '../../redux/home';
 
 export const SearchBar = () => {
   const { query } = useAppSelector((state) => state.home);
